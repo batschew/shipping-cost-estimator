@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The Shipping Cost Estimator is a program built with a microservice architecture taht allows users to estimate the cost of shipping an item from one destination to another. The user is able to specify the package dimensions, the shipping source, and the shipping destination. Given this information, the program returns an estimated cost for shipping the item, from various shipping providers.  
+The Shipping Cost Estimator is a program built with a microservice architecture that allows users to estimate the cost of shipping an item from one destination to another. The user is able to specify the package dimensions, the shipping source, and the shipping destination. Given this information, the program returns an estimated cost for shipping the item, from various shipping providers.  
 
 The Shipping Cost Estimator is accessible through REST API endpoints as well as a user interface.
 
