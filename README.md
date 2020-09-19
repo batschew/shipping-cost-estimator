@@ -8,6 +8,8 @@ The Shipping Cost Estimator is accessible through REST API endpoints as well as 
 
 ## Storyboard
 
+[Storyboard - on InVision](https://projects.invisionapp.com/prototype/PackageEstimation-ckf7ophbr004ykc012kmr4v9f/play/67bb3bf9)
+
 ## Functional Requirements
 
 ## Class Diagram
@@ -25,4 +27,4 @@ Product Owner / Scrum Master / DevOps / GitHub Administrator: Evan Batsch
 
 ## Standup
 
-Weekly meetings held at 5:00 pm on Thursdays.
+Weekly standup meetings are held at 5:00 pm on Thursdays on Discord.
