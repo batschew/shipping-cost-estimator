@@ -13,6 +13,8 @@ The Shipping Cost Estimator is accessible through REST API endpoints as well as 
 ## Functional Requirements
 
 ## Class Diagram
+![EntAppDevUML (1)](https://user-images.githubusercontent.com/55462414/93695181-0021f600-fae2-11ea-873a-2110b72ba915.png)
+## Class Diagram Description
 
 ## JSON Schema
 
