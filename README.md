@@ -17,7 +17,29 @@ The Shipping Cost Estimator is accessible through REST API endpoints as well as 
 ## Class Diagram Description
 
 ## JSON Schema
-
+>{
+>  "type" : "object",
+>  "properties" : {
+>    "serviceLevel" : {
+>      "type" : "string"
+>    },
+>    "estArrival" : {
+>      "type" : "integer"
+>    },
+>    "totalCostId" : {
+>      "type" : "integer"
+>    },
+>    "predefinedPackage" : {
+>      "type" : "string"
+>    },
+>    "rates" : {
+>      "type" : "integer"
+>    },
+>    "shipmentName" : {
+>      "type" : "string"
+>    }
+>  }
+>}
 ## Scrum Roles
 UI Specialist: Jimmy Tran  
 Business Logic and Persistence Specialist: Matthew Willison  
