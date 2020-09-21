@@ -54,7 +54,8 @@ IShippingCostService: Interface for finding and saving shipping estimate objects
 ShippingCostServiceStub: Stub for IShippingCostService, which includes built-in data to ensure that the interface works properly.  
 ShippingCostServiceImpl: Implementation for IShippingCostService, allowing for interaction with the database.  
 IShippingCostDAO: Interface for interacting with the database interaction classes.  
-ShippingCostDAO: Low-level database interaction class.  
+ShippingCostDAO: Implementation for IShippingCostDAO.  
+ShippingCostNetworkDAO: Low-level database interaction class.  
 ## JSON Schema
 >{
 >  "type" : "object",
