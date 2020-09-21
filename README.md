@@ -41,6 +41,11 @@ Given: The user has entered the required information and received the estimated 
 When: The user selects the option to calculate another package in the web interface  
 Then: The Shipping Cost Estimator will return to the first page, allowing the user to calculate the estimated cost of another shipment.  
 
+Example  
+Given: The user has entered the required information and received the estimated cost  
+When: The user saves the estimated cost that has been generated for a certain shipment  
+Then: The Shipping Cost Estimator will add the estimated cost to the running total.  
+
 ## Class Diagram
 ![EntAppDevUML (1)](https://user-images.githubusercontent.com/55462414/93695181-0021f600-fae2-11ea-873a-2110b72ba915.png)
 ## Class Diagram Description
