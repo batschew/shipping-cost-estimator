@@ -8,9 +8,38 @@ The Shipping Cost Estimator is accessible through REST API endpoints as well as 
 
 ## Storyboard
 
-[Storyboard - on InVision](https://projects.invisionapp.com/prototype/PackageEstimation-ckf7ophbr004ykc012kmr4v9f/play/67bb3bf9)
+[Storyboard - on InVision](https://projects.invisionapp.com/prototype/PackageEstimation-ckf98cvt2004taz0128ve02vh/play/67bb3bf9)
 
 ## Functional Requirements
+
+As someone looking to have packages shipped to different addresses, I want to be able to estimate my shipping costs, so that I will be able to form an accurate budget.  
+
+Example  
+Given: A set of package dimensions  
+When: The user or service selects a carrier  
+When: The user or service selects a predefined package that fits these dimensions  
+Then: The user or service will be able to calculate the cost of shipping this package to an address of their choosing.  
+
+Example  
+Given: Shipping data are available  
+When: The user or service enters an address that does not exist  
+Then: The Shipping Cost Estimator will not accept the address, and will not calculate a shipping cost.  
+
+Example  
+Given: Shipping data are available  
+When: The user or service has selected a carrier and a predefined package  
+When: The user or service has entered the address, zip code, and country that they wish to send the package to  
+Then: In the web interface, the Shipping Cost Estimator will display the data that the user has entered so far, for confirmation.  
+
+Example  
+Given: Shipping data are available  
+When: The user has entered the required information and confirmed that it is correct  
+Then: The Shipping Cost Estimator will display the estimated cost of shipping the specified item to the specified address.  
+
+Example  
+Given: The user has entered the required information and received the estimated cost  
+When: The user selects the option to calculate another package in the web interface  
+Then: The Shipping Cost Estimator will return to the first page, allowing the user to calculate the estimated cost of another shipment.  
 
 ## Class Diagram
 ![EntAppDevUML (1)](https://user-images.githubusercontent.com/55462414/93695181-0021f600-fae2-11ea-873a-2110b72ba915.png)
