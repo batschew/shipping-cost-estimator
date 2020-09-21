@@ -44,7 +44,20 @@ Then: The Shipping Cost Estimator will return to the first page, allowing the us
 ## Class Diagram
 ![EntAppDevUML (1)](https://user-images.githubusercontent.com/55462414/93695181-0021f600-fae2-11ea-873a-2110b72ba915.png)
 ## Class Diagram Description
+PackageDetails: Responsible for identifying the carrier and predefined package, which in turn identifies dimensions.
+Destination: Responsible for identifying the "to" and "from" locations of the shipment.
+CalculateCost: Determines the service level and the subsequent rate cost of shipping the package.
 
+ShippingCostEstimatorController: Allows for the ability to find previous estimations and create new ones, saving them to a database.
+ShippingCostEstimatorApplication: UI centerpiece for the application.
+CalculateShipmentCost: UI pages for calculating the shipment cost in the DTO.
+
+IShippingCostService: Interface for finding and saving shipping estimate objects.
+ShippingCostServiceStub: Stub for IShippingCostService, which includes built-in data to ensure that the interface works properly.
+ShippingCostServiceImpl: Implementation for IShippingCostService, allowing for interaction with the database.
+
+IShippingCostDAO: Interface for interacting with the database interaction classes.
+ShippingCostDAO: Low-level database interaction class.
 ## JSON Schema
 >{
 >  "type" : "object",
