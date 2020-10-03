@@ -13,7 +13,7 @@ public class PackageEstimatorController {
     @RequestMapping("/")
     public String index() {
         Shipment shipment = new Shipment();
-
+        
         return "start";
     }
 }

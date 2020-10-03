@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface IShipmentDAO {
 
-    Shipment findShipmentById();
+    Shipment findShipId(int id);
 
-    Shipment saveEstimate();
+    Shipment saveEstimate(Shipment id);
 
     List<Shipment> fetchAllShipments();
 }

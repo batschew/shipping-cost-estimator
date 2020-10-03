@@ -23,19 +23,19 @@ public class ShipmentServiceStub implements IShipmentService {
 
     }
 
-    public ShipmentServiceStub(IShipmentService shippingCostDAO){
-
+    public ShipmentServiceStub(IShipmentDAO shipmentDAO){
+        this.shipmentDAO = shipmentDAO;
     }
 
     @Override
-    public Shipment findShipmentById(int id) {
-        Shipment uniqueShipId = shipmentDAO.findShipmentById();
+    public Shipment findShipId(int id) {
+        Shipment uniqueShipId = shipmentDAO.findShipId(id);
         return uniqueShipId;
     }
 
     @Override
     public Shipment saveEstimate(Shipment shipment) throws Exception {
-        return shipmentDAO.saveEstimate();
+        return shipmentDAO.saveEstimate(shipment);
     }
 
     @Override
