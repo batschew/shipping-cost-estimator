@@ -16,4 +16,12 @@ class Shipment {
     int carrierId;
     int predefinedPackId;
     String packageName;
+
+    String startAddress;
+    String endAddress;
+
+    int totalCostId;
+    int serviceLevel;
+    int rates;
+    //int estArrival;
 }

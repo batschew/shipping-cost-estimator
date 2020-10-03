@@ -4,6 +4,7 @@ import lombok.Data;
 
 /*
 * DTO for determining the shipping cost - uses Lombok.
+* !!!Not currently in use! Variables included in Shipment.!!!
 *
 * totalCostId is the ID for the cost, and does NOT determine the actual cost. May not need this.
 * serviceLevel determines the API ID for the carrier service level. Should work with Shipment.carrierId.

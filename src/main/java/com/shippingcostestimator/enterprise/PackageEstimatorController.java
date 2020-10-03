@@ -1,5 +1,6 @@
 package com.shippingcostestimator.enterprise;
 
+import com.shippingcostestimator.enterprise.dto.Shipment;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -11,6 +12,8 @@ public class PackageEstimatorController {
      */
     @RequestMapping("/")
     public String index() {
+        Shipment shipment = new Shipment();
+
         return "start";
     }
 }
