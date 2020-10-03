@@ -16,7 +16,7 @@ import java.util.List;
 @Service
 public class ShipmentServiceStub implements IShipmentService {
 
-    @Autowired
+    //@Autowired
     private IShipmentDAO shipmentDAO;
 
     public ShipmentServiceStub(){
