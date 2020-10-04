@@ -1,10 +1,146 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmls:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Shipping Cost Estimator</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="../main.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+            integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+            integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+            crossorigin="anonymous"></script>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 </head>
 <body>
-This application calculates the estimated cost of shipping a package to a specific destination.
+<!--#region Package information -->
+<h4 id="packageInfoHeader">Package Information</h4>
+<!--Carrier select dropdown-->
+<div class="input-group mb-3" id="carrierSelect">
+    <div class="input-group-prepend">
+        <label class="input-group-text" for="carrierSelect">Carrier</label>
+    </div>
+    <select class="custom-select" id="inputGroupCarrierSelect">
+        <option selected></option>
+        <option value="FedEx">FedEx</option>
+        <option value="DHL express">DHL express</option>
+        <option value="UPS">UPS</option>
+        <option value="USPS">USPS</option>
+    </select>
+</div>
+
+<!--WIP-->
+<!--Need to write javascript that populates this dropdown list depending on what carrier is selected -->
+<!--Predefined packages dropdown *content depends on selected carrier*-->
+<div class="input-group mb-3" id="predefinedPackageSelect">
+    <div class="input-group-prepend">
+        <label class="input-group-text" for="predefinedPackageSelect">Predefined Package</label>
+    </div>
+    <select class="custom-select" id="inputGroupPredefinedPackageSelect">
+        <option selected></option>
+        <option value="1">Package1</option>
+        <option value="2">Package2</option>
+        <option value="3">Package3</option>
+        <option value="4">Package4</option>
+    </select>
+</div>
+
+<!--WIP-->
+<!--Need to write javascript that displays package dimensions based on the predefined package selected from the dropdown above-->
+<!--Predetermined package dimensions display-->
+<div class="card" id="definedPackageDimensions">
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">Length:</li>
+        <li class="list-group-item">Width:</li>
+        <li class="list-group-item">Height:</li>
+    </ul>
+</div>
+<!--#endregion Package Information -->
+
+<!--#region Starting Address -->
+<h4 id="startingAddressHeader">Starting address</h4>
+<!--Starting address line 1 input-->
+<div class="input-group mb-3" id="inputStartingAddressLine1">
+    <div class="input-group-prepend">
+        <span class="input-group-text">Address line 1</span>
+    </div>
+    <input type="text" placeholder="Street and number" class="form-control" aria-describedby="basic-addon1">
+</div>
+
+<!--Starting address line 2 input-->
+<div class="input-group mb-3" id="inputStartingAddressLine2">
+    <div class="input-group-prepend">
+        <span class="input-group-text">Address line 2</span>
+    </div>
+    <input type="text" placeholder="Apartment/Suite" class="form-control" aria-describedby="basic-addon1">
+</div>
+
+<!--Starting city input-->
+<div class="input-group mb-3" id="inputStartingCity">
+    <div class="input-group-prepend">
+        <span class="input-group-text">City</span>
+    </div>
+    <input type="text" placeholder="City" class="form-control" aria-describedby="basic-addon1">
+</div>
+
+<!--Starting State/Province/Region input-->
+<div class="input-group mb-3" id="inputStartingArea">
+    <div class="input-group-prepend">
+        <span class="input-group-text">State/Province/Region</span>
+    </div>
+    <input type="text" placeholder="State/Province/Region" class="form-control" aria-describedby="basic-addon1">
+</div>
+
+<!--#endregion Starting Address -->
+
+<!--#region Destination Address -->
+<h4 id="destinationAddressHeader">Destination address</h4>
+<!--Destination address line 1 input-->
+<div class="input-group mb-3" id="inputDestinationAddressLine1">
+    <div class="input-group-prepend">
+        <span class="input-group-text">Address line 1</span>
+    </div>
+    <input type="text" placeholder="Street and number" class="form-control" aria-describedby="basic-addon1">
+</div>
+
+<!--Destination address line 2 input-->
+<div class="input-group mb-3" id="inputDestinationAddressLine2">
+    <div class="input-group-prepend">
+        <span class="input-group-text">Address line 2</span>
+    </div>
+    <input type="text" placeholder="Apartment/Suite" class="form-control" aria-describedby="basic-addon1">
+</div>
+
+<!--Destination city input-->
+<div class="input-group mb-3" id="inputDestinationCity">
+    <div class="input-group-prepend">
+        <span class="input-group-text">City</span>
+    </div>
+    <input type="text" placeholder="City" class="form-control" aria-describedby="basic-addon1">
+</div>
+
+<!--Destination State/Province/Region input-->
+<div class="input-group mb-3" id="inputDestinationArea">
+    <div class="input-group-prepend">
+        <span class="input-group-text">State/Province/Region</span>
+    </div>
+    <input type="text" placeholder="State/Province/Region" class="form-control" aria-describedby="basic-addon1">
+</div>
+
+<!--#endregion Destination Address -->
+
+<button type="button" class="btn btn-secondary btn-lg" id="btnCalculate">Calculate</button>
+
+<h2>Rates</h2>
+<hr>
 </body>
 </html>
