@@ -28,27 +28,7 @@ class EnterpriseApplicationTests {
     void contextLoads() {
     }
 
-//    @Test
-//    void testOne(){
-//        Shipment testShipment = new Shipment();
-//        testShipment.setPackageId(5);
-//        Mockito.when(shipmentDAO.findShipId(5)).thenReturn(testShipment);
-//    }
-//
-//    void testTwo(){
-//        Shipment testShipment = new Shipment();
-//        testShipment.setPackageId(6);
-//        Map<String, Object> parcelMap = new HashMap<String, Object>();
-//        parcelMap.put("length", 20.2);
-//        parcelMap.put("width", 10.5);
-//        parcelMap.put("height", 9.9);
-//        parcelMap.put("predefined_package", null);
-//        parcelMap.put("weight", 10);
-//        testShipment.setFromAddress(parcelMap);
-//
-//        Mockito.when(shipmentDAO.saveEstimate(testShipment)).thenReturn(testShipment);
-//    }
-
+    //Checks if fetching a shipment functions correctly.
     @Test
     void fetchShipmentById_returnsShipmentWithId1() throws Exception{
         givenShipmentDataAvailable();
@@ -62,7 +42,7 @@ class EnterpriseApplicationTests {
         shipmentService = new ShipmentServiceStub(shipmentDAO);
     }
 
-    void whenShipmentWithId1Exists(){
+    private void whenShipmentWithId1Exists(){
 
         shipment.setPackageName("Stub Package");
         shipment.setPackageId(1);
@@ -72,44 +52,60 @@ class EnterpriseApplicationTests {
         shipment.setRates(9.50);
         //!!!This is a stub! Rates are to be determined by the API - this is simply built-in for testing!!!
 
-        Map<String, Object> fromAddressMap = new HashMap<String, Object>();
-        fromAddressMap.put("name", "Dude Guy");
-        fromAddressMap.put("street1", "123 Street Ave.");
-        fromAddressMap.put("street2", "321 Street Dr.");
-        fromAddressMap.put("city", "Cincinnati");
-        fromAddressMap.put("state", "OH");
-        fromAddressMap.put("country", "USA");
-        fromAddressMap.put("zip", "12345");
-        shipment.setFromAddress(fromAddressMap);
+//        Map<String, Object> fromAddressMap = new HashMap<String, Object>();
+//        fromAddressMap.put("name", "Dude Guy");
+//        fromAddressMap.put("street1", "123 Street Ave.");
+//        fromAddressMap.put("street2", "321 Street Dr.");
+//        fromAddressMap.put("city", "Cincinnati");
+//        fromAddressMap.put("state", "OH");
+//        fromAddressMap.put("country", "USA");
+//        fromAddressMap.put("zip", "12345");
+//        shipment.setFromAddress(fromAddressMap);
+//
+//        Map<String, Object> toAddressMap = new HashMap<String, Object>();
+//        toAddressMap.put("name", "Dude Guy");
+//        toAddressMap.put("street1", "456 Road Str.");
+//        toAddressMap.put("street2", "654 Road Rd.");
+//        toAddressMap.put("city", "Columbus");
+//        toAddressMap.put("state", "OH");
+//        toAddressMap.put("country", "USA");
+//        toAddressMap.put("zip", "45678");
+//        shipment.setToAddress(toAddressMap);
+//
+//        Map<String, Object> parcelMap = new HashMap<String, Object>();
+//        parcelMap.put("length", 20.2);
+//        parcelMap.put("width", 10.5);
+//        parcelMap.put("height", 9.9);
+//        parcelMap.put("predefined_package", null);
+//        parcelMap.put("weight", 10);
+//        shipment.setParcel(parcelMap);
+//
+//        Map<String, Object> shipmentMap = new HashMap<String, Object>();
+//        shipmentMap.put("to_address", toAddressMap);
+//        shipmentMap.put("from_address", fromAddressMap);
+//        shipmentMap.put("parcel", parcelMap);
+//        shipment.setShipmentItem(shipmentMap);
 
-        Map<String, Object> toAddressMap = new HashMap<String, Object>();
-        toAddressMap.put("name", "Dude Guy");
-        toAddressMap.put("street1", "456 Road Str.");
-        toAddressMap.put("street2", "654 Road Rd.");
-        toAddressMap.put("city", "Columbus");
-        toAddressMap.put("state", "OH");
-        toAddressMap.put("country", "USA");
-        toAddressMap.put("zip", "45678");
-        shipment.setToAddress(toAddressMap);
+        shipment.setNameFrom("Dude McGuy");
+        shipment.setStreetOneFrom("123 Street Ave.");
+        shipment.setCityFrom("Cincinnati");
+        shipment.setStateFrom("OH");
+        shipment.setCountryFrom("USA");
+        shipment.setZipFrom("12345");
 
-        Map<String, Object> parcelMap = new HashMap<String, Object>();
-        parcelMap.put("length", 20.2);
-        parcelMap.put("width", 10.5);
-        parcelMap.put("height", 9.9);
-        parcelMap.put("predefined_package", null);
-        parcelMap.put("weight", 10);
-        shipment.setParcel(parcelMap);
+        shipment.setNameTo("Stu McGee");
+        shipment.setStreetOneTo("321 Road Dr.");
+        shipment.setCityTo("Columbus");
+        shipment.setStateTo("OH");
+        shipment.setCountryTo("USA");
+        shipment.setZipTo("54321");
 
-        Map<String, Object> shipmentMap = new HashMap<String, Object>();
-        shipmentMap.put("to_address", toAddressMap);
-        shipmentMap.put("from_address", fromAddressMap);
-        shipmentMap.put("parcel", parcelMap);
-        shipment.setShipmentItem(shipmentMap);
-
+        shipment.setLength(20.2);
+        shipment.setWidth(10.5);
+        shipment.setHeight(9.9);
+        shipment.setWeight(100);
         Mockito.when(shipmentDAO.findShipId(1)).thenReturn(shipment);
     }
-
-
 
     private void whenShipmentDataWithId1(){
         shipment = shipmentService.findShipmentId(1);
@@ -119,7 +115,26 @@ class EnterpriseApplicationTests {
         //Map shipmentHash = shipment.getShipmentItem();
         double rates = shipment.getRates();
         assertEquals(9.50, rates);
+        String packName = shipment.getPackageName();
+        assertEquals("Stub Package", packName);
         //String name = shipment.getPackageName();
     }
 
+    //Checks if shipment can be saved.
+    @Test
+    void saveShipmentToHashMap() throws Exception{
+        givenShipmentDataAvailable();
+        whenNewShipmentCreated();
+        thenCreateNewShipmentAndAddToTotalCost();
+    }
+
+    private void whenNewShipmentCreated(){
+        shipment.setPackageId(2);
+        shipment.setPackageName("Stub Package II");
+    }
+
+    private void thenCreateNewShipmentAndAddToTotalCost() throws Exception {
+        Shipment shipmentTwo = shipmentService.saveEstimate(shipment);
+        assertEquals(shipment, shipmentTwo);
+    }
 }

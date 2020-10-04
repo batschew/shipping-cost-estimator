@@ -16,31 +16,50 @@ import java.util.Map;
 public @Data
 class Shipment {
     private int packageId;
-    //private int carrierId;
-    private String carrier;
-    //private int predefinedPackId;
+
     private String packageName;
 
-    //The example in the API suggests that we use something like this to build a Shipment object.
+    //The carrier (UPS, USPS, etc) should significantly impact the rates on the API.
+    private String carrier;
+
+    //!!!This value should not be touched outside of stub testing! This should be handled by the API!
+    private double rates;
+    //!!!This value should not be touched outside of stub testing! This should be handled by the API!
+
+    //This value should return to *sum* of all the rates.
+    private double totalRates;
+
     //Notably, there are three parts that make up a Shipment object: ToAddress, FromAddress, and Parcel.
     //If we are also doing international shipments, then we will need a fourth part: CustomsInfo.
-    private Map<String, Object> toAddress = new HashMap<String, Object>();
-    private Map<String, Object> fromAddress = new HashMap<String, Object>();
-    private Map<String, Object> parcel = new HashMap<String, Object>();
-    private Map<String, Object> shipmentItem = new HashMap<String, Object>();
+
+    //FROM address map
+    private String nameFrom;
+    private String streetOneFrom;
+    private String streetTwoFrom;
+    private String cityFrom;
+    private String stateFrom;
+    private String countryFrom;
+    private String zipFrom;
+    //private Map<String, Object> toAddress = new HashMap<String, Object>();
+
 
     //TO address map
-    //private String name;
-    //private String street1;
-    //private String street2;
-    //private String city;
-    //private String state;
-    //private String country;
-    //private String zip;
+    private String nameTo;
+    private String streetOneTo;
+    private String streetTwoTo;
+    private String cityTo;
+    private String stateTo;
+    private String countryTo;
+    private String zipTo;
+    //private Map<String, Object> fromAddress = new HashMap<String, Object>();
 
-    //private int totalCostId;
-    //private int serviceLevel;
-    private double rates;
-    private double totalRates;
-    //int estArrival;
+    //PARCEL
+    private double length;
+    private double width;
+    private double height;
+    private String predefinedPackage;
+    private double weight;
+    //private Map<String, Object> parcel = new HashMap<String, Object>();
+
+    //private Map<String, Object> shipmentItem = new HashMap<String, Object>();
 }
