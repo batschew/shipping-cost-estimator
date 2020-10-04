@@ -24,22 +24,6 @@ public class PackageEstimatorController {
      */
     @RequestMapping("/")
     public String index() {
-        System.out.println("Hello!");
-        //Sample input of info.
-//        Shipment shipment = new Shipment();
-//        shipment.setPackageId(1);
-//        shipment.setCarrierId(1);
-//        shipment.setPredefinedPackId(1);
-//        shipment.setPackageName("Stub Shipment");
-//
-//        shipment.setStartAddress("Test Address, 123");
-//        shipment.setEndAddress("Test Address, 321");
-//
-//        shipment.setServiceLevel(1);
-//        shipment.setRates(25.32);
-
-        //Map<String, Object> toAddressMap = new HashMap<String, Object>();
-
         //One big old test shipment.
         Shipment shipment = new Shipment();
         shipment.setPackageName("Stub Package");
@@ -49,10 +33,6 @@ public class PackageEstimatorController {
         //!!!This is a stub! Rates are to be determined by the API - this is simply built-in for testing!!!
         shipment.setRates(9.50);
         //!!!This is a stub! Rates are to be determined by the API - this is simply built-in for testing!!!
-
-
-
-        System.out.println("Hello!");
         return "start";
     }
 
