@@ -16,6 +16,7 @@ import java.util.List;
 @Service
 public class ShipmentServiceStub implements IShipmentService {
 
+    //Not sure why this doesn't work. If @Autowired is enabled here, then it tells me that no beans for IShipmentDao is found.
     //@Autowired
     private IShipmentDAO shipmentDAO;
 
@@ -28,7 +29,7 @@ public class ShipmentServiceStub implements IShipmentService {
     }
 
     @Override
-    public Shipment findShipId(int id) {
+    public Shipment findShipmentId(int id) {
         Shipment uniqueShipId = shipmentDAO.findShipId(id);
         return uniqueShipId;
     }

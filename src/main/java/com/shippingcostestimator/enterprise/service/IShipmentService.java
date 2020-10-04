@@ -8,7 +8,7 @@ import java.util.List;
 * Interface for the ShippingCostService service, and interacts with the ShippingCost DTO.
  */
 public interface IShipmentService {
-    Shipment findShipId(int id);
+    Shipment findShipmentId(int id);
     Shipment saveEstimate(Shipment shipment) throws Exception;
     List<Shipment> fetchAllShipments();
 }

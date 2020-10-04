@@ -1,11 +1,14 @@
 package com.shippingcostestimator.enterprise.dao;
 
 import com.shippingcostestimator.enterprise.dto.Shipment;
+import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Repository
 public class ShipmentDAOStub implements IShipmentDAO{
 
     //implementation of the Hashmaps described on week 5
@@ -18,12 +21,14 @@ public class ShipmentDAOStub implements IShipmentDAO{
 
     @Override
     public Shipment saveEstimate(Shipment shipment) {
-        //Integer shipmentId = Integer.parseInt(shipment.getShipmentId());
-        return null;
+        int shipmentId = shipment.getPackageId();
+        allShipments.put(shipmentId, shipment);
+        return shipment;
     }
 
     @Override
     public List<Shipment> fetchAllShipments() {
-        return null;
+        List<Shipment> fetchShipments = new ArrayList(allShipments.values());
+        return fetchShipments;
     }
 }
