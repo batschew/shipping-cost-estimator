@@ -8,6 +8,9 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
@@ -124,6 +127,14 @@ class EnterpriseApplicationTests {
         thenCreateNewShipmentAndAddToTotalCost();
     }
 
+    //Checks if shipments can be loaded.
+    @Test
+    void loadShipments() {
+        givenShipmentDataAvailable();
+        whenNewShipmentCreated();
+        thenLoadShipments();
+    }
+
     private void whenNewShipmentCreated(){
         shipment.setPackageId(2);
         shipment.setPackageName("Stub Package II");
@@ -132,5 +143,9 @@ class EnterpriseApplicationTests {
     private void thenCreateNewShipmentAndAddToTotalCost() throws Exception {
         Shipment shipmentTwo = shipmentService.saveEstimate(shipment);
         assertEquals(shipment, shipmentTwo);
+    }
+
+    private void thenLoadShipments() {
+        List<Shipment> shipments = shipmentService.fetchAllShipments();
     }
 }
