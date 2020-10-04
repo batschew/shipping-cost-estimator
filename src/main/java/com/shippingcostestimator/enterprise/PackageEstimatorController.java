@@ -4,6 +4,7 @@ import com.shippingcostestimator.enterprise.dto.Shipment;
 import com.shippingcostestimator.enterprise.service.IShipmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -23,16 +24,19 @@ public class PackageEstimatorController {
      * @return
      */
     @RequestMapping("/")
-    public String index() {
+    public String index(Model model) {
         //One big old test shipment.
         Shipment shipment = new Shipment();
         shipment.setPackageName("Stub Package");
         shipment.setPackageId(1);
         shipment.setCarrier("FirstClassPackageInternationalService");
-
+        shipment.setStreetOneFrom("2600 Clifton Ave");
+        shipment.setCityFrom("Cincinnati");
+        shipment.setCountryFrom("United States");
         //!!!This is a stub! Rates are to be determined by the API - this is simply built-in for testing!!!
         shipment.setRates(9.50);
         //!!!This is a stub! Rates are to be determined by the API - this is simply built-in for testing!!!
+        model.addAttribute(shipment);
         return "start";
     }
 
@@ -64,6 +68,4 @@ public class PackageEstimatorController {
         return shipmentService.fetchAllShipments();
 
     }
-
-
 }
