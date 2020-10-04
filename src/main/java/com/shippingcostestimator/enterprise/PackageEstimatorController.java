@@ -36,6 +36,11 @@ public class PackageEstimatorController {
         return "start";
     }
 
+    /***
+     * Handle the saveEstimate ("/saveEstimate") endpoint and save a Shipment object using data specified by the user.
+     * @param shipment
+     * @return
+     */
     @RequestMapping("/saveEstimate")
     public String saveEstimate(Shipment shipment){
         //Not sure why this needs a try/catch block...
@@ -48,6 +53,10 @@ public class PackageEstimatorController {
         return "start";
     }
 
+    /***
+     * Handle the shipment ("/shipment") endpoint and return all Shipment objects that have been created from data specified by the user.
+     * @return
+     */
     @GetMapping("/shipment")
     @ResponseBody
     public List<Shipment> fetchAllShipments(){

@@ -14,11 +14,21 @@ public class ShipmentDAOStub implements IShipmentDAO{
     //implementation of the Hashmaps described on week 5
     Map<Integer, Shipment> allShipments = new HashMap<>();
 
+    /***
+     * Returns a Shipment object with a specified integer ID.
+     * @param id
+     * @return
+     */
     @Override
     public Shipment findShipId(int id) {
         return allShipments.get(id);
     }
 
+    /***
+     * Saves a Shipment estimate.
+     * @param shipment
+     * @return
+     */
     @Override
     public Shipment saveEstimate(Shipment shipment) {
         int shipmentId = shipment.getPackageId();
@@ -26,6 +36,10 @@ public class ShipmentDAOStub implements IShipmentDAO{
         return shipment;
     }
 
+    /***
+     * Returns a list of Shipment objects that are currently in use by the program.
+     * @return
+     */
     @Override
     public List<Shipment> fetchAllShipments() {
         List<Shipment> fetchShipments = new ArrayList(allShipments.values());
