@@ -12,6 +12,6 @@ import lombok.Data;
  */
 public @Data
 class Destination {
-    String startAddress;
-    String endAddress;
+    private String startAddress;
+    private String endAddress;
 }
