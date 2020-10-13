@@ -17,7 +17,7 @@ public class ShipmentDAOStub implements IShipmentDAO{
     /***
      * Returns a Shipment object with a specified integer ID.
      * @param id
-     * @return
+     * @return  a specific shipment based on shipmentId.
      */
     @Override
     public Shipment findShipId(int id) {
@@ -27,7 +27,7 @@ public class ShipmentDAOStub implements IShipmentDAO{
     /***
      * Saves a Shipment estimate.
      * @param shipment
-     * @return
+     * @return Saved shipment estimate.
      */
     @Override
     public Shipment saveEstimate(Shipment shipment) {
@@ -38,7 +38,7 @@ public class ShipmentDAOStub implements IShipmentDAO{
 
     /***
      * Returns a list of Shipment objects that are currently in use by the program.
-     * @return
+     * @return A list of shipments.
      */
     @Override
     public List<Shipment> fetchAllShipments() {
