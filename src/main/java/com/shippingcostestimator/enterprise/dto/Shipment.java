@@ -54,11 +54,8 @@ class Shipment {
     //private Map<String, Object> fromAddress = new HashMap<String, Object>();
 
     //PARCEL
-    private double length;
-    private double width;
-    private double height;
-    private String predefinedPackage;
-    private double weight;
+    private PackageInfo packageInfo;
+
     //private Map<String, Object> parcel = new HashMap<String, Object>();
 
     //private Map<String, Object> shipmentItem = new HashMap<String, Object>();
