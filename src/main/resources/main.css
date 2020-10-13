@@ -1,0 +1,121 @@
+/*#region Package information*/
+#packageInfoHeader{
+    position: fixed;
+    top: 5%;
+    left: 3%;
+}
+
+#carrierSelect{
+    position: fixed;
+    top: 10%;
+    left: 3%;
+    width: 25%;
+}
+
+#predefinedPackageSelect{
+    position: fixed;
+    top: 20%;
+    left: 3%;
+    width: 25%;
+}
+
+#definedPackageDimensions {
+    position: fixed;
+    top: 35%;
+    left: 3%;
+    width: 25%;
+}
+/*#endregion*/
+
+/*#region Starting address*/
+#startingAddressHeader {
+    position: fixed;
+    top: 5%;
+    left: 32%;
+}
+#inputStartingAddressLine1 {
+    position: fixed;
+    top: 10%;
+    left: 32%;
+    width: 30%;
+}
+
+#inputStartingAddressLine2 {
+    position: fixed;
+    top: 20%;
+    left: 32%;
+    width: 30%;
+}
+
+#inputStartingCity {
+    position: fixed;
+    top:30%;
+    left: 32%;
+    width: 30%
+}
+
+#inputStartingArea {
+    position: fixed;
+    top: 40%;
+    left: 32%;
+    width:30%;
+}
+/*#endregion*/
+
+/*#region Destination address*/
+#destinationAddressHeader{
+    position: fixed;
+    top: 5%;
+    left: 65%
+}
+#inputDestinationAddressLine1 {
+    position: fixed;
+    top: 10%;
+    left: 65%;
+    width: 30%;
+}
+
+#inputDestinationAddressLine2 {
+    position: fixed;
+    top: 20%;
+    left: 65%;
+    width: 30%;
+}
+
+#inputDestinationCity {
+    position: fixed;
+    top:30%;
+    left: 65%;
+    width: 30%
+}
+
+#inputDestinationArea {
+    position: fixed;
+    top: 40%;
+    left: 65%;
+    width:30%;
+}
+/*#endregion*/
+
+#btnCalculate {
+    position: fixed;
+    top: 50%;
+    left: 60%;
+}
+
+h2{
+    position:fixed;
+    top:60%;
+    left: 45%;
+}
+
+hr{
+    position: fixed;
+    color: black;
+    top: 65%;
+    width: 100%;
+    border: 1px solid grey;
+}
+/*#region Results section*/
+
+/*#endregion*/
