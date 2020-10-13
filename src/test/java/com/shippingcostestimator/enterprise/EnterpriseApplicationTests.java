@@ -1,7 +1,9 @@
 package com.shippingcostestimator.enterprise;
 
 import com.shippingcostestimator.enterprise.dao.IShipmentDAO;
+import com.shippingcostestimator.enterprise.dto.PackageInfo;
 import com.shippingcostestimator.enterprise.dto.Shipment;
+import com.shippingcostestimator.enterprise.dto.ShippingCost;
 import com.shippingcostestimator.enterprise.service.IShipmentService;
 import com.shippingcostestimator.enterprise.service.ShipmentServiceStub;
 import org.junit.jupiter.api.Test;
@@ -19,6 +21,7 @@ class EnterpriseApplicationTests {
 
     private IShipmentService shipmentService;
     private Shipment shipment = new Shipment();
+    private PackageInfo packageInfo = new PackageInfo();
 
     @MockBean
     private IShipmentDAO shipmentDAO;
@@ -99,10 +102,13 @@ class EnterpriseApplicationTests {
         shipment.setCountryTo("USA");
         shipment.setZipTo("54321");
 
-        shipment.setLength(20.2);
-        shipment.setWidth(10.5);
-        shipment.setHeight(9.9);
-        shipment.setWeight(100);
+        packageInfo.setLength(20.2);
+        packageInfo.setWidth(10.5);
+        packageInfo.setHeight(9.9);
+        packageInfo.setWeight(100);
+
+        shipment.setPackageInfo(packageInfo);
+
         Mockito.when(shipmentDAO.findShipId(1)).thenReturn(shipment);
     }
 

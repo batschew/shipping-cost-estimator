@@ -14,8 +14,8 @@ import lombok.Data;
  */
 public @Data
 class ShippingCost {
-    private int totalCostId;
-    private int serviceLevel;
-    private int rates;
-    private int estArrival;
+    int totalCostId;
+    int carrierServiceLevel;
+    int rates;
+    int estArrival;
 }
