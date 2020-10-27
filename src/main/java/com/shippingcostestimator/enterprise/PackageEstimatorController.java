@@ -63,6 +63,4 @@ public class PackageEstimatorController {
         return shipmentService.fetchAllShipments();
 
     }
-
-
 }

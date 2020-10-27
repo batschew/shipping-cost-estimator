@@ -1,6 +1,8 @@
 package com.shippingcostestimator.enterprise.dto;
 
+import com.google.gson.annotations.SerializedName;
 import lombok.Data;
+import lombok.Getter;
 
 import java.util.HashMap;
 import java.util.Map;
