@@ -31,7 +31,7 @@ public class ShipmentServiceStub implements IShipmentService {
     /***
      * Returns a Shipment object with a specified integer ID.
      * @param id
-     * @return
+     * @return A shipment estimate based on specified ShipmentId.
      */
     @Override
     public Shipment findShipmentId(int id) {
@@ -42,7 +42,7 @@ public class ShipmentServiceStub implements IShipmentService {
     /***
      * Saves a Shipment estimate.
      * @param shipment
-     * @return
+     * @return Saved shipment estimate.
      * @throws Exception
      */
     @Override
@@ -52,7 +52,7 @@ public class ShipmentServiceStub implements IShipmentService {
 
     /***
      * Returns a list of all Shipment objects that are currently in use by the program.
-     * @return
+     * @return a list of all shipments.
      */
     @Override
     public List<Shipment> fetchAllShipments() {

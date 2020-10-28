@@ -21,7 +21,7 @@ public class PackageEstimatorController {
 
     /**
      * Handle the root ("/") endpoint and return a start page.
-     * @return
+     * @return start.html page.
      */
     @RequestMapping("/")
     public String index(Model model) {
@@ -43,7 +43,7 @@ public class PackageEstimatorController {
     /***
      * Handle the saveEstimate ("/saveEstimate") endpoint and save a Shipment object using data specified by the user.
      * @param shipment
-     * @return
+     * @return start.html page.
      */
     @RequestMapping("/saveEstimate")
     public String saveEstimate(Shipment shipment){
@@ -59,12 +59,11 @@ public class PackageEstimatorController {
 
     /***
      * Handle the shipment ("/shipment") endpoint and return all Shipment objects that have been created from data specified by the user.
-     * @return
+     * @return all shipments in the list.
      */
     @GetMapping("/shipment")
     @ResponseBody
     public List<Shipment> fetchAllShipments(){
-
         return shipmentService.fetchAllShipments();
 
     }
