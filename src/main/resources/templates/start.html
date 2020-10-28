@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmls:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Shipping Cost Estimator</title>
@@ -23,119 +23,123 @@
 </head>
 <body>
 <!--#region Package information -->
-<h4 id="packageInfoHeader">Package Information</h4>
-<!--Carrier select dropdown-->
-<div class="input-group mb-3" id="carrierSelect">
-    <div class="input-group-prepend">
-        <label class="input-group-text" for="carrierSelect">Carrier</label>
+<div id="packageInfoDiv">
+    <h4 id="packageInfoHeader">Package Information</h4>
+    <!--Carrier select dropdown-->
+    <div class="input-group mb-3" id="carrierSelect">
+        <div class="input-group-prepend">
+            <label class="input-group-text" for="carrierSelect">Carrier</label>
+        </div>
+        <select class="custom-select" id="inputGroupCarrierSelect">
+            <option selected></option>
+            <option value="FedEx">FedEx</option>
+            <option value="DHL express">DHL express</option>
+            <option value="UPS">UPS</option>
+            <option value="USPS">USPS</option>
+        </select>
     </div>
-    <select class="custom-select" id="inputGroupCarrierSelect">
-        <option selected></option>
-        <option value="FedEx">FedEx</option>
-        <option value="DHL express">DHL express</option>
-        <option value="UPS">UPS</option>
-        <option value="USPS">USPS</option>
-    </select>
-</div>
 
-<!--WIP-->
-<!--Need to write javascript that populates this dropdown list depending on what carrier is selected -->
-<!--Predefined packages dropdown *content depends on selected carrier*-->
-<div class="input-group mb-3" id="predefinedPackageSelect">
-    <div class="input-group-prepend">
-        <label class="input-group-text" for="predefinedPackageSelect">Predefined Package</label>
+    <!--WIP-->
+    <!--Need to write javascript that populates this dropdown list depending on what carrier is selected -->
+    <!--Predefined packages dropdown *content depends on selected carrier*-->
+    <div class="input-group mb-3" id="predefinedPackageSelect">
+        <div class="input-group-prepend">
+            <label class="input-group-text" for="predefinedPackageSelect">Predefined Package</label>
+        </div>
+        <select class="custom-select" id="inputGroupPredefinedPackageSelect">
+            <option selected></option>
+            <option value="1">Package1</option>
+            <option value="2">Package2</option>
+            <option value="3">Package3</option>
+            <option value="4">Package4</option>
+        </select>
     </div>
-    <select class="custom-select" id="inputGroupPredefinedPackageSelect">
-        <option selected></option>
-        <option value="1">Package1</option>
-        <option value="2">Package2</option>
-        <option value="3">Package3</option>
-        <option value="4">Package4</option>
-    </select>
-</div>
 
-<!--WIP-->
-<!--Need to write javascript that displays package dimensions based on the predefined package selected from the dropdown above-->
-<!--Predetermined package dimensions display-->
-<div class="card" id="definedPackageDimensions">
-    <ul class="list-group list-group-flush">
-        <li class="list-group-item">Length:</li>
-        <li class="list-group-item">Width:</li>
-        <li class="list-group-item">Height:</li>
-    </ul>
+    <!--WIP-->
+    <!--Need to write javascript that displays package dimensions based on the predefined package selected from the dropdown above-->
+    <!--Predetermined package dimensions display-->
+    <div class="card" id="definedPackageDimensions">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">Length:</li>
+            <li class="list-group-item">Width:</li>
+            <li class="list-group-item">Height:</li>
+        </ul>
+    </div>
 </div>
 <!--#endregion Package Information -->
 
 <!--#region Starting Address -->
-<h4 id="startingAddressHeader">Starting address</h4>
-<!--Starting address line 1 input-->
-<div class="input-group mb-3" id="inputStartingAddressLine1">
-    <div class="input-group-prepend">
-        <span class="input-group-text">Address line 1</span>
+<div id="startingAddressDiv">
+    <h4 id="startingAddressHeader">Starting address</h4>
+    <!--Starting address line 1 input-->
+    <div class="input-group mb-3" id="inputStartingAddressLine1">
+        <div class="input-group-prepend">
+            <span class="input-group-text">Address line 1</span>
+        </div>
+        <input type="text" placeholder="Street and number" class="form-control" aria-describedby="basic-addon1">
     </div>
-    <input type="text" placeholder="Street and number" class="form-control" aria-describedby="basic-addon1">
-</div>
 
-<!--Starting address line 2 input-->
-<div class="input-group mb-3" id="inputStartingAddressLine2">
-    <div class="input-group-prepend">
-        <span class="input-group-text">Address line 2</span>
+    <!--Starting address line 2 input-->
+    <div class="input-group mb-3" id="inputStartingAddressLine2">
+        <div class="input-group-prepend">
+            <span class="input-group-text">Address line 2</span>
+        </div>
+        <input type="text" placeholder="Apartment/Suite" class="form-control" aria-describedby="basic-addon1">
     </div>
-    <input type="text" placeholder="Apartment/Suite" class="form-control" aria-describedby="basic-addon1">
-</div>
 
-<!--Starting city input-->
-<div class="input-group mb-3" id="inputStartingCity">
-    <div class="input-group-prepend">
-        <span class="input-group-text">City</span>
+    <!--Starting city input-->
+    <div class="input-group mb-3" id="inputStartingCity">
+        <div class="input-group-prepend">
+            <span class="input-group-text">City</span>
+        </div>
+        <input type="text" placeholder="City" class="form-control" aria-describedby="basic-addon1">
     </div>
-    <input type="text" placeholder="City" class="form-control" aria-describedby="basic-addon1">
-</div>
 
-<!--Starting State/Province/Region input-->
-<div class="input-group mb-3" id="inputStartingArea">
-    <div class="input-group-prepend">
-        <span class="input-group-text">State/Province/Region</span>
+    <!--Starting State/Province/Region input-->
+    <div class="input-group mb-3" id="inputStartingArea">
+        <div class="input-group-prepend">
+            <span class="input-group-text">State/Province/Region</span>
+        </div>
+        <input type="text" placeholder="State/Province/Region" class="form-control" aria-describedby="basic-addon1">
     </div>
-    <input type="text" placeholder="State/Province/Region" class="form-control" aria-describedby="basic-addon1">
 </div>
-
 <!--#endregion Starting Address -->
 
 <!--#region Destination Address -->
-<h4 id="destinationAddressHeader">Destination address</h4>
-<!--Destination address line 1 input-->
-<div class="input-group mb-3" id="inputDestinationAddressLine1">
-    <div class="input-group-prepend">
-        <span class="input-group-text">Address line 1</span>
+<div id="destinationAddressDiv">
+    <h4 id="destinationAddressHeader">Destination address</h4>
+    <!--Destination address line 1 input-->
+    <div class="input-group mb-3" id="inputDestinationAddressLine1">
+        <div class="input-group-prepend">
+            <span class="input-group-text">Address line 1</span>
+        </div>
+        <input type="text" placeholder="Street and number" class="form-control" aria-describedby="basic-addon1">
     </div>
-    <input type="text" placeholder="Street and number" class="form-control" aria-describedby="basic-addon1">
-</div>
 
-<!--Destination address line 2 input-->
-<div class="input-group mb-3" id="inputDestinationAddressLine2">
-    <div class="input-group-prepend">
-        <span class="input-group-text">Address line 2</span>
+    <!--Destination address line 2 input-->
+    <div class="input-group mb-3" id="inputDestinationAddressLine2">
+        <div class="input-group-prepend">
+            <span class="input-group-text">Address line 2</span>
+        </div>
+        <input type="text" placeholder="Apartment/Suite" class="form-control" aria-describedby="basic-addon1">
     </div>
-    <input type="text" placeholder="Apartment/Suite" class="form-control" aria-describedby="basic-addon1">
-</div>
 
-<!--Destination city input-->
-<div class="input-group mb-3" id="inputDestinationCity">
-    <div class="input-group-prepend">
-        <span class="input-group-text">City</span>
+    <!--Destination city input-->
+    <div class="input-group mb-3" id="inputDestinationCity">
+        <div class="input-group-prepend">
+            <span class="input-group-text">City</span>
+        </div>
+        <input type="text" placeholder="City" class="form-control" aria-describedby="basic-addon1">
     </div>
-    <input type="text" placeholder="City" class="form-control" aria-describedby="basic-addon1">
-</div>
 
-<!--Destination State/Province/Region input-->
-<div class="input-group mb-3" id="inputDestinationArea">
-    <div class="input-group-prepend">
-        <span class="input-group-text">State/Province/Region</span>
+    <!--Destination State/Province/Region input-->
+    <div class="input-group mb-3" id="inputDestinationArea">
+        <div class="input-group-prepend">
+            <span class="input-group-text">State/Province/Region</span>
+        </div>
+        <input type="text" placeholder="State/Province/Region" class="form-control" aria-describedby="basic-addon1">
     </div>
-    <input type="text" placeholder="State/Province/Region" class="form-control" aria-describedby="basic-addon1">
 </div>
-
 <!--#endregion Destination Address -->
 
 <button type="button" class="btn btn-secondary btn-lg" id="btnCalculate">Calculate</button>
