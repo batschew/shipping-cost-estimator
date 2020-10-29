@@ -3,11 +3,11 @@ package com.shippingcostestimator.enterprise;
 import com.shippingcostestimator.enterprise.dao.IShipmentDAO;
 import com.shippingcostestimator.enterprise.dto.PackageInfo;
 import com.shippingcostestimator.enterprise.dto.Shipment;
-import com.shippingcostestimator.enterprise.dto.ShippingCost;
 import com.shippingcostestimator.enterprise.service.IShipmentService;
-import com.shippingcostestimator.enterprise.service.ShipmentServiceStub;
+import com.shippingcostestimator.enterprise.service.ShipmentService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
@@ -41,7 +41,7 @@ class EnterpriseApplicationTests {
 
     private void givenShipmentDataAvailable(){
         Mockito.when(shipmentDAO.saveEstimate(shipment)).thenReturn(shipment);
-        shipmentService = new ShipmentServiceStub(shipmentDAO);
+        shipmentService = new ShipmentService(shipmentDAO);
     }
 
     private void whenShipmentWithId1Exists(){
