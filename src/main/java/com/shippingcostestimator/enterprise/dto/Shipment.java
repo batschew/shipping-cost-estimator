@@ -2,6 +2,10 @@ package com.shippingcostestimator.enterprise.dto;
 
 import lombok.Data;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,8 +17,12 @@ import java.util.Map;
 * predefinedPackId is going to be the predefined ID for a package from a specific carrier.*
 * predefinedPackId may need to be moved to another DTO, however.
  */
+@Entity
 public @Data
 class Shipment {
+
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
     private int packageId;
 
     private String packageName;
