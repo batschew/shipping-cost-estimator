@@ -30,7 +30,7 @@ public class ShipmentSQLDAO implements IShipmentDAO{
     //To remedy this, we have two options.
     //One, we can change all the methods involving fetchAllShipments to take an Iterable instead of a List.
     //Or two, we do what I did below, where we converted it from an Iterable to a List.
-    //The Professor suggests that for smaller projects, the second method is a good idea.
+    //The professor suggests that for smaller projects, the second method is a good idea.
     //He also said that for larger projects, it would be better to bite the bullet and do the first method.
     @Override
     public List<Shipment> fetchAllShipments() {

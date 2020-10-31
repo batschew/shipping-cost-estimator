@@ -1,7 +1,5 @@
 package com.shippingcostestimator.enterprise.service;
 
-
-
 import com.shippingcostestimator.enterprise.dao.IShipmentDAO;
 import com.shippingcostestimator.enterprise.dto.Shipment;
 import org.springframework.beans.factory.annotation.Autowired;

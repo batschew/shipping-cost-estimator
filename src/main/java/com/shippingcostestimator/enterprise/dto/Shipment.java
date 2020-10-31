@@ -24,6 +24,8 @@ class Shipment {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private int packageId;
+    private int packageInfoId;
+    private int shippingCostId;
 
     private String packageName;
 
@@ -48,7 +50,6 @@ class Shipment {
     private String stateFrom;
     private String countryFrom;
     private String zipFrom;
-    //private Map<String, Object> toAddress = new HashMap<String, Object>();
 
 
     //TO address map
@@ -59,12 +60,7 @@ class Shipment {
     private String stateTo;
     private String countryTo;
     private String zipTo;
-    //private Map<String, Object> fromAddress = new HashMap<String, Object>();
 
     //PARCEL
     private PackageInfo packageInfo;
-
-    //private Map<String, Object> parcel = new HashMap<String, Object>();
-
-    //private Map<String, Object> shipmentItem = new HashMap<String, Object>();
 }
