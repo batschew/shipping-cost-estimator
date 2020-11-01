@@ -1,5 +1,6 @@
 package com.shippingcostestimator.enterprise.dto;
 
+import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 
 /*
@@ -15,7 +16,10 @@ import lombok.Data;
 public @Data
 class ShippingCost {
     private int totalCostId;
+    @SerializedName("serviceLevel")
     private int serviceLevel;
+    @SerializedName("rates")
     private int rates;
+    @SerializedName("estArrival")
     private int estArrival;
 }
