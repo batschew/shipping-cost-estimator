@@ -15,7 +15,7 @@ import java.util.List;
 public class ShipmentService implements IShipmentService {
 
     //Not sure why this doesn't work. If @Autowired is enabled here, then it tells me that no beans for IShipmentDao is found.
-    @Autowired
+    //@Autowired
     private IShipmentDAO shipmentDAO;
 
     public ShipmentService(){
