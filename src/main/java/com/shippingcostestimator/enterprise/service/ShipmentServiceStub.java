@@ -12,17 +12,17 @@ import java.util.List;
  */
 
 @Service
-public class ShipmentService implements IShipmentService {
+public class ShipmentServiceStub implements IShipmentService {
 
     //Not sure why this doesn't work. If @Autowired is enabled here, then it tells me that no beans for IShipmentDao is found.
     @Autowired
     private IShipmentDAO shipmentDAO;
 
-    public ShipmentService(){
+    public ShipmentServiceStub(){
 
     }
 
-    public ShipmentService(IShipmentDAO shipmentDAO){
+    public ShipmentServiceStub(IShipmentDAO shipmentDAO){
         this.shipmentDAO = shipmentDAO;
     }
 
