@@ -4,10 +4,7 @@ import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 import lombok.Getter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,6 +23,7 @@ class Shipment {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private int packageId;
+
     private int packageInfoId;
     private int shippingCostId;
 
@@ -64,5 +62,5 @@ class Shipment {
     private String zipTo;
 
     //PARCEL
-    private PackageInfo packageInfo;
+    //private PackageInfo packageInfo;
 }

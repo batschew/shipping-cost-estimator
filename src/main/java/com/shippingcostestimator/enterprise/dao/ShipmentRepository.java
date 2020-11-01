@@ -8,5 +8,4 @@ import java.util.List;
 
 @Profile("!test")
 public interface ShipmentRepository extends CrudRepository<Shipment, Integer> {
-    List<Shipment> findShipmentByPackageId(int packageId);
 }

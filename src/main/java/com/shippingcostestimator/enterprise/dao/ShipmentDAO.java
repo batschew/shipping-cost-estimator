@@ -11,7 +11,7 @@ import java.util.Map;
 
 @Repository
 @Profile("test")
-public class ShipmentDAOStub implements IShipmentDAO{
+public class ShipmentDAO implements IShipmentDAO{
 
     //implementation of the Hashmaps described on week 5
     Map<Integer, Shipment> allShipments = new HashMap<>();
