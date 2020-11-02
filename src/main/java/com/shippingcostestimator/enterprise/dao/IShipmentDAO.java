@@ -11,4 +11,5 @@ public interface IShipmentDAO {
     Shipment saveEstimate(Shipment id);
 
     List<Shipment> fetchAllShipments();
+
 }

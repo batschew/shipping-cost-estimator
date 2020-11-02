@@ -1,6 +1,7 @@
 package com.shippingcostestimator.enterprise.dao;
 
 import com.shippingcostestimator.enterprise.dto.Shipment;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -9,7 +10,8 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
-public class ShipmentDAOStub implements IShipmentDAO{
+@Profile("test")
+public class ShipmentDAO implements IShipmentDAO{
 
     //implementation of the Hashmaps described on week 5
     Map<Integer, Shipment> allShipments = new HashMap<>();

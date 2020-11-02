@@ -65,6 +65,5 @@ public class PackageEstimatorController {
     @ResponseBody
     public List<Shipment> fetchAllShipments(){
         return shipmentService.fetchAllShipments();
-
     }
 }

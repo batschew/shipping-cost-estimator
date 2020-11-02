@@ -1,7 +1,10 @@
 package com.shippingcostestimator.enterprise.dto;
 
+import com.google.gson.annotations.SerializedName;
 import lombok.Data;
+import lombok.Getter;
 
+import javax.persistence.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,9 +16,16 @@ import java.util.Map;
 * predefinedPackId is going to be the predefined ID for a package from a specific carrier.*
 * predefinedPackId may need to be moved to another DTO, however.
  */
+@Entity
 public @Data
 class Shipment {
+
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
     private int packageId;
+
+    private int packageInfoId;
+    private int shippingCostId;
 
     private String packageName;
 
@@ -40,7 +50,6 @@ class Shipment {
     private String stateFrom;
     private String countryFrom;
     private String zipFrom;
-    //private Map<String, Object> toAddress = new HashMap<String, Object>();
 
 
     //TO address map
@@ -51,12 +60,7 @@ class Shipment {
     private String stateTo;
     private String countryTo;
     private String zipTo;
-    //private Map<String, Object> fromAddress = new HashMap<String, Object>();
 
     //PARCEL
-    private PackageInfo packageInfo;
-
-    //private Map<String, Object> parcel = new HashMap<String, Object>();
-
-    //private Map<String, Object> shipmentItem = new HashMap<String, Object>();
+    //private PackageInfo packageInfo;
 }
