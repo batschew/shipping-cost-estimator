@@ -28,9 +28,7 @@ public class ShippingCostDAO implements IShippingCostDAO{
 
         Call<String> ratesData = shippingCostRetrofitDAO.getServiceLevel(apiKey);
         Response<String> execute = ratesData.execute();
-        String rates = execute.body();
-
-        return rates;
+        return execute.body();
     }
 
     @Override
