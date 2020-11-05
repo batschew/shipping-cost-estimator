@@ -44,7 +44,6 @@ public class ShipmentDAO implements IShipmentDAO{
      */
     @Override
     public List<Shipment> fetchAllShipments() {
-        List<Shipment> fetchShipments = new ArrayList(allShipments.values());
-        return fetchShipments;
+        return (List<Shipment>) new ArrayList(allShipments.values());
     }
 }

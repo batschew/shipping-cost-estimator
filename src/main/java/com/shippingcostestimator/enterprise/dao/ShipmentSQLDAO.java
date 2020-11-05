@@ -22,8 +22,7 @@ public class ShipmentSQLDAO implements IShipmentDAO{
 
     @Override
     public Shipment saveEstimate(Shipment shipment) {
-        Shipment createdShipment = shipmentRepository.save(shipment);
-        return createdShipment;
+        return shipmentRepository.save(shipment);
     }
 
     //In this case, .findAll(); doesn't return a List object, but instead an Iterable.
