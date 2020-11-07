@@ -1,7 +1,7 @@
 /*#region Package information*/
 #packageInfoHeader{
     position: fixed;
-    top: 5%;
+    top: 3%;
     left: 3%;
 }
 
@@ -30,7 +30,7 @@
 /*#region Starting address*/
 #startingAddressHeader {
     position: fixed;
-    top: 5%;
+    top: 3%;
     left: 32%;
 }
 #inputStartingAddressLine1 {
@@ -65,7 +65,7 @@
 /*#region Destination address*/
 #destinationAddressHeader{
     position: fixed;
-    top: 5%;
+    top: 3%;
     left: 65%
 }
 #inputDestinationAddressLine1 {
