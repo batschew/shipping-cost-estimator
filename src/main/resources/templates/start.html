@@ -23,6 +23,8 @@
 </head>
 <body>
 <!--#region Package information -->
+
+<form action="#" th:action="@{/saveEstimate}" th:object="${shipment}" method="GET">
 <div id="packageInfoDiv">
     <h4 id="packageInfoHeader">Package Information</h4>
     <!--Carrier select dropdown-->
@@ -30,7 +32,7 @@
         <div class="input-group-prepend">
             <label class="input-group-text" for="carrierSelect">Carrier</label>
         </div>
-        <select class="custom-select" id="inputGroupCarrierSelect">
+        <select class="custom-select" id="inputGroupCarrierSelect" th:field="*{carrier}">
             <option selected></option>
             <option value="FedEx">FedEx</option>
             <option value="DHL express">DHL express</option>
@@ -76,7 +78,7 @@
         <div class="input-group-prepend">
             <span class="input-group-text">Address line 1</span>
         </div>
-        <input type="text" placeholder="Street and number" class="form-control" aria-describedby="basic-addon1">
+        <input type="text" placeholder="Street and number" class="form-control" aria-describedby="basic-addon1" th:field="*{streetOneFrom}" >
     </div>
 
     <!--Starting address line 2 input-->
@@ -84,7 +86,7 @@
         <div class="input-group-prepend">
             <span class="input-group-text">Address line 2</span>
         </div>
-        <input type="text" placeholder="Apartment/Suite" class="form-control" aria-describedby="basic-addon1">
+        <input type="text" placeholder="Apartment/Suite" class="form-control" aria-describedby="basic-addon1" th:field="*{streetTwoFrom}" >
     </div>
 
     <!--Starting city input-->
@@ -92,7 +94,7 @@
         <div class="input-group-prepend">
             <span class="input-group-text">City</span>
         </div>
-        <input type="text" placeholder="City" class="form-control" aria-describedby="basic-addon1">
+        <input type="text" placeholder="City" class="form-control" aria-describedby="basic-addon1" th:field="*{cityFrom}" >
     </div>
 
     <!--Starting State/Province/Region input-->
@@ -100,7 +102,7 @@
         <div class="input-group-prepend">
             <span class="input-group-text">State/Province/Region</span>
         </div>
-        <input type="text" placeholder="State/Province/Region" class="form-control" aria-describedby="basic-addon1">
+        <input type="text" placeholder="State/Province/Region" class="form-control" aria-describedby="basic-addon1" th:field="*{countryFrom}" >
     </div>
 </div>
 <!--#endregion Starting Address -->
@@ -113,7 +115,7 @@
         <div class="input-group-prepend">
             <span class="input-group-text">Address line 1</span>
         </div>
-        <input type="text" placeholder="Street and number" class="form-control" aria-describedby="basic-addon1">
+        <input type="text" placeholder="Street and number" class="form-control" aria-describedby="basic-addon1" th:field="*{streetOneTo}" >
     </div>
 
     <!--Destination address line 2 input-->
@@ -121,7 +123,7 @@
         <div class="input-group-prepend">
             <span class="input-group-text">Address line 2</span>
         </div>
-        <input type="text" placeholder="Apartment/Suite" class="form-control" aria-describedby="basic-addon1">
+        <input type="text" placeholder="Apartment/Suite" class="form-control" aria-describedby="basic-addon1" th:field="*{streetTwoTo}" >
     </div>
 
     <!--Destination city input-->
@@ -129,7 +131,7 @@
         <div class="input-group-prepend">
             <span class="input-group-text">City</span>
         </div>
-        <input type="text" placeholder="City" class="form-control" aria-describedby="basic-addon1">
+        <input type="text" placeholder="City" class="form-control" aria-describedby="basic-addon1" th:field="*{cityTo}" >
     </div>
 
     <!--Destination State/Province/Region input-->
@@ -137,13 +139,14 @@
         <div class="input-group-prepend">
             <span class="input-group-text">State/Province/Region</span>
         </div>
-        <input type="text" placeholder="State/Province/Region" class="form-control" aria-describedby="basic-addon1">
+        <input type="text" placeholder="State/Province/Region" class="form-control" aria-describedby="basic-addon1" th:field="*{countryTo}" >
     </div>
 </div>
 <!--#endregion Destination Address -->
 
-<button type="button" class="btn btn-secondary btn-lg" id="btnCalculate">Calculate</button>
-
+<button type="submit" class="btn btn-secondary btn-lg" id="btnCalculate">Calculate</button>
+</form>
+<p th:text="${shipment}"></p>
 <h2>Rates</h2>
 <hr>
 </body>
