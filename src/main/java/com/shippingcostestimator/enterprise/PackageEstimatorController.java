@@ -3,11 +3,15 @@ package com.shippingcostestimator.enterprise;
 import com.shippingcostestimator.enterprise.dto.Shipment;
 import com.shippingcostestimator.enterprise.service.IShipmentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import com.easypost.EasyPost;
+import com.easypost.exception.EasyPostException;
 
 import java.util.HashMap;
 import java.util.List;
@@ -66,4 +70,61 @@ public class PackageEstimatorController {
     public List<Shipment> fetchAllShipments(){
         return shipmentService.fetchAllShipments();
     }
+
+    /*
+     * Find a shipment with a given ID.
+     * Given the parameter ID, find the shipment that has the same ID.
+     *
+     * Returns status code:
+     * 200: shipment found
+     * 400: shipment not found
+     *
+     * @param id the unique identifier of a shipment
+     */
+    @GetMapping("/shipment/{id}/")
+    public ResponseEntity fetchShipmentById(@PathVariable("id") int id){
+        Shipment foundShipment;
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        try{
+            foundShipment = shipmentService.findShipmentId(id);
+            return new ResponseEntity(foundShipment, headers, HttpStatus.OK);
+        }catch(Exception e){
+            return new ResponseEntity(headers, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+//    @PostMapping("/saveShipment")
+//    public String saveShipment(Shipment shipment){
+//        try{
+//            shipmentService.saveEstimate(shipment);
+//        }catch(Exception e){
+//
+//        }
+//    }
+
+    /*
+     * Create a new shipment object with the data inputted in the UI.
+     *
+     * Returns:
+     * 201: Successful creation
+     * 409: Can't create because it already exists
+     *
+     * @param shipment a JSON representation of the shipment object
+     * @return the newly created shipment object
+     */
+//    @PostMapping(value="/shipment", consumes="application/json", produces="application/json")
+//    public ResponseEntity createShipment(@RequestBody Shipment shipment){
+//        Shipment newShipment;
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.setContentType(MediaType.APPLICATION_JSON);
+//        try{
+//            newShipment = shipmentService.saveEstimate(shipment);
+//        }catch(Exception e){
+//            return new ResponseEntity(headers, HttpStatus.CONFLICT);
+//        }
+//        return new ResponseEntity(newShipment, headers, HttpStatus.CREATED);
+//    }
+
+
 }
