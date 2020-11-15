@@ -12,6 +12,8 @@ import lombok.Data;
 * rates is the actual determined cost of the shipment from the API.
 * estArrival is the estimated arrival time of the shipment. Unsure if this is inputted or calculated by the API.
 * We may want to remove estArrival, depending on that.
+*
+* Not in use in this branch! Not being removed quite yet, as I'm shifting the code to rely more on the new DTOs so the program will work better with the API.
  */
 public @Data
 class ShippingCost {
