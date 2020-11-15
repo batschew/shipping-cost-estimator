@@ -1,5 +1,7 @@
 package com.shippingcostestimator.enterprise;
 
+import com.easypost.EasyPost;
+import com.easypost.exception.EasyPostException;
 import com.shippingcostestimator.enterprise.dto.*;
 import com.shippingcostestimator.enterprise.service.IShipmentService;
 import org.slf4j.Logger;
@@ -13,7 +15,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller // Decides what renders when a user hits a URL or endpoint
 public class PackageEstimatorController {
@@ -23,24 +27,14 @@ public class PackageEstimatorController {
 
     Logger log = LoggerFactory.getLogger(this.getClass());
 
+
     /**
      * Handle the root ("/") endpoint and return a start page.
      * @return start.html page.
      */
     @RequestMapping("/")
-    public String index(Model model) {
-//        //One big old test shipment.
-//        Shipment shipment = new Shipment();
-//        shipment.setPackageName("Stub Package");
-//        shipment.setPackageId(1);
-//        shipment.setCarrier("FirstClassPackageInternationalService");
-//        shipment.setStreetOneFrom("2600 Clifton Ave");
-//        shipment.setCityFrom("Cincinnati");
-//        shipment.setCountryFrom("United States");
-//        //!!!This is a stub! Rates are to be determined by the API - this is simply built-in for testing!!!
-//        shipment.setRates(9.50);
-//        //!!!This is a stub! Rates are to be determined by the API - this is simply built-in for testing!!!
-
+    public String index(Model model){
+        EasyPost.apiKey = "x";
         ShipmentMap shipment = new ShipmentMap();
         FromAddress fromAddress = new FromAddress();
         ToAddress toAddress = new ToAddress();
@@ -49,19 +43,51 @@ public class PackageEstimatorController {
 
         fromAddress.setId(1);
         fromAddress.setStreet1("1234 Street");
+        fromAddress.setZip("");
+        String streetOneValue = fromAddress.getStreet1();
+        String originZip = fromAddress.getZip();
 
         toAddress.setId(1);
         toAddress.setStreet1("3421 Avenue");
+        toAddress.setZip("");
+        String streetTwoValue = toAddress.getStreet1();
+        String destinationZip = toAddress.getZip();
 
         parcel.setPackageInfoId(1);
         parcel.setWeight(32.50);
+        double weight = parcel.getWeight();
 
         shipment.setId(1);
+
+        Map<String, Object> toAddressMap = new HashMap<String, Object>();
+        toAddressMap.put("street1", streetTwoValue);
+        toAddressMap.put("zip", destinationZip);
+
+        Map<String, Object> fromAddressMap = new HashMap<String, Object>();
+        fromAddressMap.put("street1", streetOneValue);
+        fromAddressMap.put("zip", originZip);
+
+        Map<String, Object> parcelMap = new HashMap<String, Object>();
+        parcelMap.put("weight", weight);
+
         shipment.setFromAddress(fromAddress);
         shipment.setToAddress(toAddress);
         shipment.setParcel(parcel);
 
-        model.addAttribute(shipment);
+        Map<String, Object> shipmentMap = new HashMap<String, Object>();
+        shipmentMap.put("to_address", toAddressMap);
+        shipmentMap.put("from_address", fromAddressMap);
+        shipmentMap.put("parcel", parcelMap);
+
+
+        com.easypost.model.Shipment shipmentTwo = null;
+        try {
+            shipmentTwo = com.easypost.model.Shipment.create(shipmentMap);
+        } catch (EasyPostException e) {
+            e.printStackTrace();
+        }
+
+        model.addAttribute(shipmentTwo);
         return "start";
     }
 
