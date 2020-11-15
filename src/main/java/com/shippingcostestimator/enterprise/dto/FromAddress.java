@@ -6,9 +6,10 @@ import lombok.Data;
 /*
  * FromAddress map. This is what should be the "start" address of a shipment.
  */
-public class FromAddress {
+public @Data
+class FromAddress {
     @SerializedName("id")
-    private String id;
+    private int id;
     @SerializedName("object")
     private String object;
     @SerializedName("name")

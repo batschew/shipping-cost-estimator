@@ -1,7 +1,9 @@
 package com.shippingcostestimator.enterprise;
 
-import com.shippingcostestimator.enterprise.dto.Shipment;
+import com.shippingcostestimator.enterprise.dto.*;
 import com.shippingcostestimator.enterprise.service.IShipmentService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -10,12 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import com.easypost.EasyPost;
-import com.easypost.exception.EasyPostException;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Controller // Decides what renders when a user hits a URL or endpoint
 public class PackageEstimatorController {
@@ -23,23 +21,46 @@ public class PackageEstimatorController {
     @Autowired
     IShipmentService shipmentService;
 
+    Logger log = LoggerFactory.getLogger(this.getClass());
+
     /**
      * Handle the root ("/") endpoint and return a start page.
      * @return start.html page.
      */
     @RequestMapping("/")
     public String index(Model model) {
-        //One big old test shipment.
-        Shipment shipment = new Shipment();
-        shipment.setPackageName("Stub Package");
-        shipment.setPackageId(1);
-        shipment.setCarrier("FirstClassPackageInternationalService");
-        shipment.setStreetOneFrom("2600 Clifton Ave");
-        shipment.setCityFrom("Cincinnati");
-        shipment.setCountryFrom("United States");
-        //!!!This is a stub! Rates are to be determined by the API - this is simply built-in for testing!!!
-        shipment.setRates(9.50);
-        //!!!This is a stub! Rates are to be determined by the API - this is simply built-in for testing!!!
+//        //One big old test shipment.
+//        Shipment shipment = new Shipment();
+//        shipment.setPackageName("Stub Package");
+//        shipment.setPackageId(1);
+//        shipment.setCarrier("FirstClassPackageInternationalService");
+//        shipment.setStreetOneFrom("2600 Clifton Ave");
+//        shipment.setCityFrom("Cincinnati");
+//        shipment.setCountryFrom("United States");
+//        //!!!This is a stub! Rates are to be determined by the API - this is simply built-in for testing!!!
+//        shipment.setRates(9.50);
+//        //!!!This is a stub! Rates are to be determined by the API - this is simply built-in for testing!!!
+
+        ShipmentMap shipment = new ShipmentMap();
+        FromAddress fromAddress = new FromAddress();
+        ToAddress toAddress = new ToAddress();
+        PackageInfo parcel = new PackageInfo();
+
+
+        fromAddress.setId(1);
+        fromAddress.setStreet1("1234 Street");
+
+        toAddress.setId(1);
+        toAddress.setStreet1("3421 Avenue");
+
+        parcel.setPackageInfoId(1);
+        parcel.setWeight(32.50);
+
+        shipment.setId(1);
+        shipment.setFromAddress(fromAddress);
+        shipment.setToAddress(toAddress);
+        shipment.setParcel(parcel);
+
         model.addAttribute(shipment);
         return "start";
     }
@@ -52,10 +73,13 @@ public class PackageEstimatorController {
     @RequestMapping("/saveEstimate")
     public String saveEstimate(Shipment shipment){
         //Not sure why this needs a try/catch block...
+        log.debug("Entering saveEstimate endpoint");
         try {
             shipmentService.saveEstimate(shipment);
+            log.info("Saving estimate");
         } catch (Exception e) {
             e.printStackTrace();
+            log.info("Error saving estimate. Message: " + e.getMessage());
             return "start";
         }
         return "start";
@@ -83,13 +107,16 @@ public class PackageEstimatorController {
      */
     @GetMapping("/shipment/{id}/")
     public ResponseEntity fetchShipmentById(@PathVariable("id") int id){
+        log.debug("Entering fetchShipmentById endpoint");
         Shipment foundShipment;
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         try{
+            log.info("Found shipment");
             foundShipment = shipmentService.findShipmentId(id);
             return new ResponseEntity(foundShipment, headers, HttpStatus.OK);
         }catch(Exception e){
+            log.info("Did not find shipment with a 400 BAD_REQUEST error. Message: " + e.getMessage());
             return new ResponseEntity(headers, HttpStatus.BAD_REQUEST);
         }
     }

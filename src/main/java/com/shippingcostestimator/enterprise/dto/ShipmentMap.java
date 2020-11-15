@@ -6,9 +6,10 @@ import lombok.Data;
 /*
  * This is what connects the FromAddress, ToAddress, and PackageInfo maps together. Hopefully, this should solve the issue of the code not producing nested JSON.
  */
-public class ShipmentMap {
+public @Data
+class ShipmentMap {
     @SerializedName("id")
-    private String id;
+    private int id;
     @SerializedName("object")
     private String object;
     @SerializedName("to_address")
