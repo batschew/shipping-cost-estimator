@@ -97,6 +97,14 @@
         <input type="text" placeholder="City" class="form-control" aria-describedby="basic-addon1" th:field="*{cityFrom}" >
     </div>
 
+    <!--Starting city input-->
+    <div class="input-group mb-3" id="inputStartingZip">
+        <div class="input-group-prepend">
+            <span class="input-group-text">Zip Code</span>
+        </div>
+        <input type="text" placeholder="Zip Code" class="form-control" aria-describedby="basic-addon1" th:field="*{zipFrom}" >
+    </div>
+
     <!--Starting State/Province/Region input-->
     <div class="input-group mb-3" id="inputStartingArea">
         <div class="input-group-prepend">
@@ -132,6 +140,14 @@
             <span class="input-group-text">City</span>
         </div>
         <input type="text" placeholder="City" class="form-control" aria-describedby="basic-addon1" th:field="*{cityTo}" >
+    </div>
+
+    <!--Destination Zip Code input-->
+    <div class="input-group mb-3" id="inputDestinationZip">
+        <div class="input-group-prepend">
+            <span class="input-group-text">Zip Code</span>
+        </div>
+        <input type="text" placeholder="Zip Code" class="form-control" aria-describedby="basic-addon1" th:field="*{zipTo}" >
     </div>
 
     <!--Destination State/Province/Region input-->
