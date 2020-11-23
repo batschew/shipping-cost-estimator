@@ -20,11 +20,11 @@ public class ShippingCostServiceStub implements IShippingCostService {
 
     @Override
     public String fetchRates(String apiKey, int shipmentId) throws IOException {
-        return fetchRates(apiKey, shipmentId);
+        return shippingCostDAO.fetchRates(apiKey, shipmentId);
     }
 
     @Override
     public String fetchEstArrival(String apiKey) throws IOException {
-        return fetchEstArrival(apiKey);
+        return shippingCostDAO.fetchEstArrival(apiKey);
     }
 }
