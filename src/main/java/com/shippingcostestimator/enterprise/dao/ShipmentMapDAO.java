@@ -1,6 +1,6 @@
 package com.shippingcostestimator.enterprise.dao;
 
-import com.shippingcostestimator.enterprise.dto.Shipment;
+import com.shippingcostestimator.enterprise.dto.ShipmentMap;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -9,10 +9,10 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
-public class ShipmentDAOStub implements IShipmentDAO{
+public class ShipmentMapDAO implements IShipmentMapDAO{
 
     //implementation of the Hashmaps described on week 5
-    Map<Integer, Shipment> allShipments = new HashMap<>();
+    Map<Integer, ShipmentMap> allShipments = new HashMap<>();
 
     /***
      * Returns a Shipment object with a specified integer ID.
@@ -20,20 +20,20 @@ public class ShipmentDAOStub implements IShipmentDAO{
      * @return  a specific shipment based on shipmentId.
      */
     @Override
-    public Shipment findShipId(int id) {
+    public ShipmentMap findShipById(int id) {
         return allShipments.get(id);
     }
 
     /***
      * Saves a Shipment estimate.
-     * @param shipment
+     * @param shipmentMap
      * @return Saved shipment estimate.
      */
     @Override
-    public Shipment saveEstimate(Shipment shipment) {
-        int shipmentId = shipment.getPackageId();
-        allShipments.put(shipmentId, shipment);
-        return shipment;
+    public ShipmentMap saveEstimate(ShipmentMap shipmentMap) {
+        int shipmentId = shipmentMap.getId();
+        allShipments.put(shipmentId, shipmentMap);
+        return shipmentMap;
     }
 
     /***
@@ -41,8 +41,8 @@ public class ShipmentDAOStub implements IShipmentDAO{
      * @return A list of shipments.
      */
     @Override
-    public List<Shipment> fetchAllShipments() {
-        List<Shipment> fetchShipments = new ArrayList(allShipments.values());
+    public List<ShipmentMap> fetchAllShipments() {
+        List<ShipmentMap> fetchShipments = new ArrayList(allShipments.values());
         return fetchShipments;
     }
 }
