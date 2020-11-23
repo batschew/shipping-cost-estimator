@@ -27,7 +27,6 @@ public class PackageEstimatorController {
 
     Logger log = LoggerFactory.getLogger(this.getClass());
 
-
     /**
      * Handle the root ("/") endpoint and return a start page.
      * @return start.html page.

@@ -1,15 +1,20 @@
 package com.shippingcostestimator.enterprise;
 
+import com.shippingcostestimator.enterprise.dao.IPackageInfoDAO;
 import com.shippingcostestimator.enterprise.dao.IShipmentDAO;
 import com.shippingcostestimator.enterprise.dto.PackageInfo;
 import com.shippingcostestimator.enterprise.dto.Shipment;
+import com.shippingcostestimator.enterprise.service.IPackageInfoService;
 import com.shippingcostestimator.enterprise.service.IShipmentService;
 import com.shippingcostestimator.enterprise.service.ShipmentService;
+import org.apache.tomcat.jni.File;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+import java.io.IOException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -19,6 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class EnterpriseApplicationTests {
 
     private IShipmentService shipmentService;
+    private IPackageInfoService packageService;
     private Shipment shipment = new Shipment();
     private PackageInfo packageInfo = new PackageInfo();
 
@@ -112,6 +118,18 @@ class EnterpriseApplicationTests {
     private void thenCreateNewShipmentAndAddToTotalCost() throws Exception {
         Shipment shipmentTwo = shipmentService.saveEstimate(shipment);
         assertEquals(shipment, shipmentTwo);
+    }
+
+    // Checks if Package Info can be retrieved.
+    @Test
+    void fetchPredefinedPackageWithId1() throws IOException {
+        givenShipmentDataAvailable();
+        whenNewShipmentCreated();
+        thenReturnPredefinedPackageWithId1();
+    }
+
+    private void thenReturnPredefinedPackageWithId1() throws IOException {
+        packageService.fetchPredefinedPackage("private_key_test", 1);
     }
 
     private void thenLoadShipments() {
