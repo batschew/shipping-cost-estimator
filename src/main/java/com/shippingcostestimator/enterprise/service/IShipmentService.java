@@ -11,6 +11,4 @@ public interface IShipmentService {
     Shipment findShipmentId(int id);
     Shipment saveEstimate(Shipment shipment) throws Exception;
     List<Shipment> fetchAllShipments();
-
-
 }

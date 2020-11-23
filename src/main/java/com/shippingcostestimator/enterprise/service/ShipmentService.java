@@ -3,6 +3,7 @@ package com.shippingcostestimator.enterprise.service;
 import com.shippingcostestimator.enterprise.dao.IShipmentDAO;
 import com.shippingcostestimator.enterprise.dto.Shipment;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,6 +34,7 @@ public class ShipmentService implements IShipmentService {
      * @return A shipment estimate based on specified ShipmentId.
      */
     @Override
+    @Cacheable("shipmentID")
     public Shipment findShipmentId(int id) {
         Shipment uniqueShipId = shipmentDAO.findShipId(id);
         return uniqueShipId;
