@@ -3,6 +3,9 @@ package com.shippingcostestimator.enterprise.dto;
 import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /*
  * FromAddress map. This is what should be the "start" address of a shipment.
  */
@@ -16,10 +19,10 @@ class FromAddress {
     private String name;
     @SerializedName("company")
     private String company;
-    @SerializedName("street1")
-    private String street1;
-    @SerializedName("street2")
-    private String street2;
+    @SerializedName("streetOne")
+    private String streetOne;
+    @SerializedName("streetTwo")
+    private String streetTwo;
     @SerializedName("city")
     private String city;
     @SerializedName("state")

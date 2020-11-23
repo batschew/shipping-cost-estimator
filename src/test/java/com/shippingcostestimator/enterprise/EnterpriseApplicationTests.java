@@ -1,16 +1,24 @@
 package com.shippingcostestimator.enterprise;
 
-import com.shippingcostestimator.enterprise.dao.IShipmentDAO;
+import com.easypost.EasyPost;
+import com.easypost.exception.EasyPostException;
+import com.easypost.model.Rate;
+import com.easypost.model.Shipment;
+import com.shippingcostestimator.enterprise.dao.IShipmentMapDAO;
+import com.shippingcostestimator.enterprise.dto.FromAddress;
 import com.shippingcostestimator.enterprise.dto.PackageInfo;
-import com.shippingcostestimator.enterprise.dto.Shipment;
-import com.shippingcostestimator.enterprise.service.IShipmentService;
-import com.shippingcostestimator.enterprise.service.ShipmentService;
+import com.shippingcostestimator.enterprise.dto.ShipmentMap;
+import com.shippingcostestimator.enterprise.dto.ToAddress;
+import com.shippingcostestimator.enterprise.service.IShipmentMapService;
+import com.shippingcostestimator.enterprise.service.ShipmentMapService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -18,12 +26,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @SpringBootTest
 class EnterpriseApplicationTests {
 
-    private IShipmentService shipmentService;
-    private Shipment shipment = new Shipment();
+    private IShipmentMapService shipmentMapService;
+    private ShipmentMap shipment = new ShipmentMap();
     private PackageInfo packageInfo = new PackageInfo();
 
     @MockBean
-    private IShipmentDAO shipmentDAO;
+    private IShipmentMapDAO shipmentMapDAO;
 
     @Test
     void contextLoads() {
@@ -31,90 +39,120 @@ class EnterpriseApplicationTests {
 
     //Checks if fetching a shipment functions correctly.
     @Test
-    void fetchShipmentById_returnsShipmentWithId1() throws Exception{
+    void fetchShipmentById_returnsShipmentWithId0() throws Exception{
         givenShipmentDataAvailable();
-        whenShipmentWithId1Exists();
-        whenShipmentDataWithId1();
-        thenReturnShipmentWithId1();
+        whenShipmentWithId0Exists();
+        whenShipmentDataWithId0();
+        thenReturnShipmentWithId0();
     }
 
     private void givenShipmentDataAvailable(){
-        Mockito.when(shipmentDAO.saveEstimate(shipment)).thenReturn(shipment);
-        shipmentService = new ShipmentService(shipmentDAO);
+        Mockito.when(shipmentMapDAO.saveEstimate(shipment)).thenReturn(shipment);
+        shipmentMapService = new ShipmentMapService(shipmentMapDAO);
     }
 
-    private void whenShipmentWithId1Exists(){
+    private void whenShipmentWithId0Exists(){
 
-        shipment.setPackageName("Stub Package");
-        shipment.setPackageId(1);
-        shipment.setCarrier("FirstClassPackageInternationalService");
+        EasyPost.apiKey = "x";
+        ShipmentMap shipmentMap = new ShipmentMap();
+        FromAddress fromAddress = new FromAddress();
+        ToAddress toAddress = new ToAddress();
+        PackageInfo parcel = new PackageInfo();
 
-        //!!!This is a stub! Rates are to be determined by the API - this is simply built-in for testing!!!
-        shipment.setRates(9.50);
-        //!!!This is a stub! Rates are to be determined by the API - this is simply built-in for testing!!!
 
-        shipment.setNameFrom("Dude McGuy");
-        shipment.setStreetOneFrom("123 Street Ave.");
-        shipment.setCityFrom("Cincinnati");
-        shipment.setStateFrom("OH");
-        shipment.setCountryFrom("USA");
-        shipment.setZipFrom("12345");
+        fromAddress.setId(1);
+        fromAddress.setStreetOne("1234 Street");
+        fromAddress.setZip("1");
+        String streetOneValue = fromAddress.getStreetOne();
+        String originZip = fromAddress.getZip();
 
-        shipment.setNameTo("Stu McGee");
-        shipment.setStreetOneTo("321 Road Dr.");
-        shipment.setCityTo("Columbus");
-        shipment.setStateTo("OH");
-        shipment.setCountryTo("USA");
-        shipment.setZipTo("54321");
+        toAddress.setId(1);
+        toAddress.setStreetOne("3421 Avenue");
+        toAddress.setZip("1");
+        String streetTwoValue = toAddress.getStreetOne();
+        String destinationZip = toAddress.getZip();
 
-        packageInfo.setLength(20.2);
-        packageInfo.setWidth(10.5);
-        packageInfo.setHeight(9.9);
-        packageInfo.setWeight(100);
+        parcel.setPackageInfoId(1);
+        //parcel.setPredefinedPackage("MediumFlatRateBox");
+        parcel.setWeight(32.50);
+        double weight = parcel.getWeight();
+        //String predefinedPackage = parcel.getPredefinedPackage();
 
-        //shipment.setPackageInfo(packageInfo);
+        //shipment.setId(1);
 
-        Mockito.when(shipmentDAO.findShipId(1)).thenReturn(shipment);
+        HashMap toAddressMap = new HashMap<String, Object>();
+        toAddressMap.put("street1", streetTwoValue);
+        toAddressMap.put("zip", destinationZip);
+
+        HashMap fromAddressMap = new HashMap<String, Object>();
+        fromAddressMap.put("street1", streetOneValue);
+        fromAddressMap.put("zip", originZip);
+
+        HashMap parcelMap = new HashMap<String, Object>();
+        parcelMap.put("weight", weight);
+        //parcelMap.put("predefined_package", predefinedPackage);
+
+        shipmentMap.setFromAddress(fromAddressMap);
+        shipmentMap.setToAddress(toAddressMap);
+        shipmentMap.setParcel(parcelMap);
+
+        Map<String, Object> shipment = new HashMap<String, Object>();
+        shipment.put("to_address", shipmentMap.getToAddress());
+        shipment.put("from_address", shipmentMap.getFromAddress());
+        shipment.put("parcel", shipmentMap.getParcel());
+
+
+
+        //After this point, we make the shipment itself and send it through the API.
+        Shipment shipmentTwo = null;
+        Rate rate = null;
+        try {
+            shipmentTwo = com.easypost.model.Shipment.create(shipment);
+            rate = shipmentTwo.lowestRate();
+        } catch (EasyPostException e) {
+            e.printStackTrace();
+        }
+
+        Mockito.when(shipmentMapDAO.findShipById(0)).thenReturn(shipmentMap);
     }
 
-    private void whenShipmentDataWithId1(){
-        shipment = shipmentService.findShipmentId(1);
+    private void whenShipmentDataWithId0(){
+        shipment = shipmentMapService.findShipmentById(0);
     }
 
-    private void thenReturnShipmentWithId1(){
-        double rates = shipment.getRates();
-        assertEquals(9.50, rates);
-        String packName = shipment.getPackageName();
-        assertEquals("Stub Package", packName);
-    }
+    private void thenReturnShipmentWithId0(){
 
-    //Checks if shipment can be saved.
-    @Test
-    void saveShipmentToHashMap() throws Exception{
-        givenShipmentDataAvailable();
-        whenNewShipmentCreated();
-        thenCreateNewShipmentAndAddToTotalCost();
+        int id = shipment.getId();
+        assertEquals(0, id);
     }
-
-    //Checks if shipments can be loaded.
-    @Test
-    void loadShipments() {
-        givenShipmentDataAvailable();
-        whenNewShipmentCreated();
-        thenLoadShipments();
-    }
-
-    private void whenNewShipmentCreated(){
-        shipment.setPackageId(2);
-        shipment.setPackageName("Stub Package II");
-    }
-
-    private void thenCreateNewShipmentAndAddToTotalCost() throws Exception {
-        Shipment shipmentTwo = shipmentService.saveEstimate(shipment);
-        assertEquals(shipment, shipmentTwo);
-    }
-
-    private void thenLoadShipments() {
-        List<Shipment> shipments = shipmentService.fetchAllShipments();
-    }
+//
+//    //Checks if shipment can be saved.
+//    @Test
+//    void saveShipmentToHashMap() throws Exception{
+//        givenShipmentDataAvailable();
+//        whenNewShipmentCreated();
+//        thenCreateNewShipmentAndAddToTotalCost();
+//    }
+//
+//    //Checks if shipments can be loaded.
+//    @Test
+//    void loadShipments() {
+//        givenShipmentDataAvailable();
+//        whenNewShipmentCreated();
+//        thenLoadShipments();
+//    }
+//
+//    private void whenNewShipmentCreated(){
+//        shipment.setPackageId(2);
+//        shipment.setPackageName("Stub Package II");
+//    }
+//
+//    private void thenCreateNewShipmentAndAddToTotalCost() throws Exception {
+//        Shipment shipmentTwo = shipmentService.saveEstimate(shipment);
+//        assertEquals(shipment, shipmentTwo);
+//    }
+//
+//    private void thenLoadShipments() {
+//        List<Shipment> shipments = shipmentService.fetchAllShipments();
+//    }
 }
