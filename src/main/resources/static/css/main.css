@@ -42,21 +42,28 @@
 
 #inputStartingAddressLine2 {
     position: fixed;
-    top: 20%;
+    top: 17%;
     left: 32%;
     width: 30%;
 }
 
 #inputStartingCity {
     position: fixed;
-    top:30%;
+    top:24%;
     left: 32%;
     width: 30%
 }
 
+#inputStartingZip {
+    position: fixed;
+    top: 31%;
+    left: 32%;
+    width: 30%;
+}
+
 #inputStartingArea {
     position: fixed;
-    top: 40%;
+    top: 38%;
     left: 32%;
     width:30%;
 }
@@ -77,21 +84,28 @@
 
 #inputDestinationAddressLine2 {
     position: fixed;
-    top: 20%;
+    top: 17%;
     left: 65%;
     width: 30%;
 }
 
 #inputDestinationCity {
     position: fixed;
-    top:30%;
+    top:24%;
+    left: 65%;
+    width: 30%
+}
+
+#inputDestinationZip {
+    position: fixed;
+    top:31%;
     left: 65%;
     width: 30%
 }
 
 #inputDestinationArea {
     position: fixed;
-    top: 40%;
+    top: 38%;
     left: 65%;
     width:30%;
 }
