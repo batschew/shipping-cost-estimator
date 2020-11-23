@@ -16,6 +16,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
             integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
             crossorigin="anonymous"></script>
+    <script src="js/main.js"></script>
 
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -32,7 +33,7 @@
         <div class="input-group-prepend">
             <label class="input-group-text" for="carrierSelect">Carrier</label>
         </div>
-        <select class="custom-select" id="inputGroupCarrierSelect" th:field="*{carrier}">
+        <select class="custom-select" id="inputGroupCarrierSelect" onchange="loadPredefinedPackages()" th:field="*{carrier}">
             <option value="" selected></option>
             <option value="FedEx">FedEx</option>
             <option value="DHL express">DHL express</option>
