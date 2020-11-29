@@ -18,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller // Decides what renders when a user hits a URL or endpoint
@@ -35,44 +36,43 @@ public class PackageEstimatorController {
      */
     @RequestMapping("/")
     public String index(Model model){
-        EasyPost.apiKey = "x";
+        EasyPost.apiKey = "EZTK773d7864beb64671aadc6a9d64777a6boAq0h9WzLFA70as0wPnkrQ";
         ShipmentMap shipment = new ShipmentMap();
         FromAddress fromAddress = new FromAddress();
         ToAddress toAddress = new ToAddress();
         PackageInfo parcel = new PackageInfo();
 
+        model.addAttribute(fromAddress);
+        model.addAttribute(toAddress);
+        model.addAttribute("packageInfo", parcel);
+        return "start";
+    }
 
-        fromAddress.setId(1);
-        fromAddress.setStreetOne("1234 Street");
-        fromAddress.setZip("1");
-        String streetOneValue = fromAddress.getStreetOne();
-        String originZip = fromAddress.getZip();
+    @PostMapping("/saveShipmentMap")
+    public String saveShipmentMap(FromAddress fromAddress, ToAddress toAddress, PackageInfo packageInfo){
 
-        toAddress.setId(1);
-        toAddress.setStreetOne("3421 Avenue");
-        toAddress.setZip("1");
-        String streetTwoValue = toAddress.getStreetOne();
-        String destinationZip = toAddress.getZip();
+        EasyPost.apiKey = "EZTK773d7864beb64671aadc6a9d64777a6boAq0h9WzLFA70as0wPnkrQ";
 
-        parcel.setPackageInfoId(1);
-        //parcel.setPredefinedPackage("MediumFlatRateBox");
-        parcel.setWeight(32.50);
-        double weight = parcel.getWeight();
-        //String predefinedPackage = parcel.getPredefinedPackage();
-
-        //shipment.setId(1);
-
+        //Declare variables
+        ShipmentMap shipment = new ShipmentMap();
         HashMap toAddressMap = new HashMap<String, Object>();
-        toAddressMap.put("street1", streetTwoValue);
-        toAddressMap.put("zip", destinationZip);
-
         HashMap fromAddressMap = new HashMap<String, Object>();
-        fromAddressMap.put("street1", streetOneValue);
-        fromAddressMap.put("zip", originZip);
-
         HashMap parcelMap = new HashMap<String, Object>();
-        parcelMap.put("weight", weight);
-        //parcelMap.put("predefined_package", predefinedPackage);
+
+        //set object maps from UI model
+        fromAddressMap.put("street1", fromAddress.getFromStreetOne());
+        fromAddressMap.put("street2", fromAddress.getFromStreetTwo());
+        fromAddressMap.put("city", fromAddress.getFromCity());
+        fromAddressMap.put("zip", fromAddress.getFromZip());
+        fromAddressMap.put("state", fromAddress.getFromState());
+
+        toAddressMap.put("street1", toAddress.getToStreetOne());
+        toAddressMap.put("street2", toAddress.getToStreetTwo());
+        toAddressMap.put("city", toAddress.getToCity());
+        toAddressMap.put("zip", toAddress.getToZip());
+        toAddressMap.put("state", toAddress.getToState());
+
+        parcelMap.put("weight", packageInfo.getWeight());
 
         shipment.setFromAddress(fromAddressMap);
         shipment.setToAddress(toAddressMap);
@@ -83,26 +83,26 @@ public class PackageEstimatorController {
         shipmentMap.put("from_address", shipment.getFromAddress());
         shipmentMap.put("parcel", shipment.getParcel());
 
-
-
-        //After this point, we make the shipment itself and send it through the API.
-        com.easypost.model.Shipment shipmentTwo = null;
-        Rate rate = null;
+        //EASYPOST logic
+        com.easypost.model.Shipment shipmentModel = null;
+        //Create easypost shipment
         try {
-            shipmentTwo = com.easypost.model.Shipment.create(shipmentMap);
-            rate = shipmentTwo.lowestRate();
+            shipmentModel = com.easypost.model.Shipment.create(shipmentMap);
         } catch (EasyPostException e) {
             e.printStackTrace();
         }
 
+        //Console logging for debugging purposes, remove for production
+        var rates = shipmentModel.getRates();
+        for(Rate rate : rates){
+            System.out.println("Carrier: " + rate.getCarrier());
+            System.out.println("Service level: " + rate.getService());
+            System.out.println("Est Delivery Days: " + rate.getEstDeliveryDays());
+            System.out.println("Delivery Days: " + rate.getDeliveryDays());
+            System.out.println("Rate: " + rate.getRate());
+            System.out.println("");
+        }
 
-
-        model.addAttribute(rate);
-        return "start";
-    }
-
-    @PostMapping("/saveShipmentMap")
-    public String saveShipmentMap(ShipmentMap shipment){
         try{
             ShipmentMapService.saveEstimate(shipment);
         }catch(Exception e){

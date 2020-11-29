@@ -59,11 +59,18 @@ class EnterpriseApplicationTests {
 
 
         fromAddress.setId(1);
-        fromAddress.setStreetOne("1234 Street");
-        fromAddress.setZip("1");
+
+        fromAddress.setFromStreetOne("1234 Street");
+        fromAddress.setFromZip("1");
+        String streetOneValue = fromAddress.getFromStreetOne();
+        String originZip = fromAddress.getFromZip();
+
         toAddress.setId(1);
-        toAddress.setStreetOne("3421 Avenue");
-        toAddress.setZip("1");
+        toAddress.setToStreetOne("3421 Avenue");
+        toAddress.setToZip("1");
+        String streetTwoValue = toAddress.getToStreetOne();
+        String destinationZip = toAddress.getToZip();
+
         parcel.setPackageInfoId(1);
         parcel.setWeight(32.50);
 
