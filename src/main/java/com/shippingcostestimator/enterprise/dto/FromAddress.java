@@ -15,30 +15,30 @@ class FromAddress {
     private int id;
     @SerializedName("object")
     private String object;
-    @SerializedName("name")
-    private String name;
-    @SerializedName("company")
-    private String company;
-    @SerializedName("streetOne")
-    private String streetOne;
-    @SerializedName("streetTwo")
-    private String streetTwo;
-    @SerializedName("city")
-    private String city;
-    @SerializedName("state")
-    private String state;
-    @SerializedName("zip")
-    private String zip;
-    @SerializedName("country")
-    private String country;
-    @SerializedName("phone")
-    private String phone;
-    @SerializedName("mode")
-    private String mode;
+    @SerializedName("fromName")
+    private String fromName;
+    @SerializedName("fromCompany")
+    private String fromCompany;
+    @SerializedName("fromStreetOne")
+    private String fromStreetOne;
+    @SerializedName("fromStreetTwo")
+    private String fromStreetTwo;
+    @SerializedName("fromCity")
+    private String fromCity;
+    @SerializedName("fromState")
+    private String fromState;
+    @SerializedName("fromZip")
+    private String fromZip;
+    @SerializedName("fromCountry")
+    private String fromCountry;
+    @SerializedName("fromPhone")
+    private String fromPhone;
+    @SerializedName("fromMode")
+    private String fromMode;
     @SerializedName("carrier_facility")
-    private String carrierFacility;
+    private String fromCarrierFacility;
     @SerializedName("residential")
-    private String residential;
+    private String fromResidential;
     @SerializedName("email")
-    private String email;
+    private String fromEmail;
 }

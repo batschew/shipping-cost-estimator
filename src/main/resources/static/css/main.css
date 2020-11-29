@@ -12,16 +12,9 @@
     width: 25%;
 }
 
-#predefinedPackageSelect{
-    position: fixed;
-    top: 20%;
-    left: 3%;
-    width: 25%;
-}
-
-#definedPackageDimensions {
-    position: fixed;
-    top: 35%;
+#inputPackageWeight {
+    position:fixed;
+    top: 17%;
     left: 3%;
     width: 25%;
 }
@@ -114,7 +107,7 @@
 #btnCalculate {
     position: fixed;
     top: 50%;
-    left: 60%;
+    left: 50%;
 }
 
 h2{

@@ -12,30 +12,30 @@ class ToAddress {
     private int id;
     @SerializedName("object")
     private String object;
-    @SerializedName("name")
-    private String name;
-    @SerializedName("company")
-    private String company;
+    @SerializedName("toName")
+    private String toName;
+    @SerializedName("toCompany")
+    private String toCompany;
     @SerializedName("streetOne")
-    private String streetOne;
+    private String toStreetOne;
     @SerializedName("streetTwo")
-    private String streetTwo;
+    private String toStreetTwo;
     @SerializedName("city")
-    private String city;
+    private String toCity;
     @SerializedName("state")
-    private String state;
+    private String toState;
     @SerializedName("zip")
-    private String zip;
+    private String toZip;
     @SerializedName("country")
-    private String country;
+    private String toCountry;
     @SerializedName("phone")
-    private String phone;
+    private String toPhone;
     @SerializedName("mode")
-    private String mode;
+    private String toMode;
     @SerializedName("carrier_facility")
     private String carrierFacility;
     @SerializedName("residential")
-    private String residential;
+    private String toResidential;
     @SerializedName("email")
-    private String email;
+    private String toEmail;
 }
