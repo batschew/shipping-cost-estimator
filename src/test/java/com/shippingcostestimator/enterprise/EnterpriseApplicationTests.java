@@ -51,8 +51,6 @@ class EnterpriseApplicationTests {
     }
 
     private void whenShipmentWithId5Exists(){
-
-        EasyPost.apiKey = "x";
         FromAddress fromAddress = new FromAddress();
         ToAddress toAddress = new ToAddress();
         PackageInfo parcel = new PackageInfo();
@@ -74,11 +72,6 @@ class EnterpriseApplicationTests {
         parcel.setPackageInfoId(1);
         parcel.setWeight(32.50);
 
-
-        String streetTwoValue = toAddress.getStreetOne();
-        String destinationZip = toAddress.getZip();
-        String streetOneValue = fromAddress.getStreetOne();
-        String originZip = fromAddress.getZip();
         double weight = parcel.getWeight();
 
 
@@ -104,16 +97,6 @@ class EnterpriseApplicationTests {
         shipment.put("from_address", shipmentMap.getFromAddress());
         shipment.put("parcel", shipmentMap.getParcel());
 
-        //After this point, we make the shipment itself and send it through the API.
-        Shipment shipmentTwo = null;
-        Rate rate = null;
-        try {
-            shipmentTwo = com.easypost.model.Shipment.create(shipment);
-            rate = shipmentTwo.lowestRate();
-        } catch (EasyPostException e) {
-            e.printStackTrace();
-        }
-
         shipmentMap.setId(5);
         Mockito.when(shipmentMapDAO.findShipById(5)).thenReturn(shipmentMap);
     }
@@ -136,26 +119,25 @@ class EnterpriseApplicationTests {
     }
 
     private void whenNewShipmentMapCreated() throws Exception {
-        EasyPost.apiKey = "x";
         FromAddress fromAddress = new FromAddress();
         ToAddress toAddress = new ToAddress();
         PackageInfo parcel = new PackageInfo();
 
 
         fromAddress.setId(1);
-        fromAddress.setStreetOne("1234 Street");
-        fromAddress.setZip("1");
+        fromAddress.setFromStreetOne("1234 Street");
+        fromAddress.setFromZip("1");
         toAddress.setId(1);
-        toAddress.setStreetOne("3421 Avenue");
-        toAddress.setZip("1");
+        toAddress.setToStreetOne("3421 Avenue");
+        toAddress.setToZip("1");
         parcel.setPackageInfoId(1);
         parcel.setWeight(32.50);
 
 
-        String streetTwoValue = toAddress.getStreetOne();
-        String destinationZip = toAddress.getZip();
-        String streetOneValue = fromAddress.getStreetOne();
-        String originZip = fromAddress.getZip();
+        String streetTwoValue = toAddress.getToStreetOne();
+        String destinationZip = toAddress.getToZip();
+        String streetOneValue = fromAddress.getFromStreetOne();
+        String originZip = fromAddress.getFromZip();
         double weight = parcel.getWeight();
 
 
