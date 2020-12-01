@@ -28,15 +28,16 @@
     <div id="packageInfoDiv" th:object="${packageInfo}">
         <h4 id="packageInfoHeader">Package Information</h4>
         <!--Carrier select dropdown-->
-        <div class="input-group mb-3" id="serviceSelect">
+        <div class="input-group mb-3" id="carrierSelect">
             <div class="input-group-prepend">
-                <label class="input-group-text" for="serviceSelect">Service</label>
+                <label class="input-group-text" for="carrierSelect">Carrier</label>
             </div>
-            <select class="custom-select" id="inputGroupServiceSelect">
+            <select class="custom-select" id="inputGroupCarrierSelect">
                 <option value="" selected></option>
-                <option value="Express">Express</option>
-                <option value="Priority">Priority</option>
-                <option value="ParcelSelect">Parcel Select</option>
+                <option value="FedEx">FedEx</option>
+                <option value="DHL express">DHL express</option>
+                <option value="UPS">UPS</option>
+                <option value="USPS">USPS</option>
             </select>
         </div>
         <div class="input-group mb-3" id="inputPackageWeight">
@@ -46,9 +47,6 @@
             <input type="text" placeholder="Package weight" class="form-control" aria-describedby="basic-addon1" name="weight"
                    th:field="*{weight}">
         </div>
-
-
-    </div>
     <!--#endregion Package Information -->
 
     <!--#region Starting Address -->

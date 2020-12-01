@@ -97,14 +97,9 @@ public class PackageEstimatorController {
         //Console logging for debugging purposes, remove for production
         var rates = shipmentModel.getRates();
         model.addAttribute("rates", rates);
-        ShipmentRate shipmentRate = new ShipmentRate();
-        for(Rate rate : rates){
-            String service = "Priority";
-//            if(service.equals(rate.getService())){
-//                //System.out.println("YES");
-//
-//            }
 
+        for(Rate rate : rates){
+            ShipmentRate shipmentRate = new ShipmentRate();
             shipmentRate.setCarrier(rate.getCarrier());
             shipmentRate.setService(rate.getService());
             shipmentRate.setRate(rate.getRate());
