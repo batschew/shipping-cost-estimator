@@ -12,10 +12,14 @@ public class ShipmentRatesService implements IShipmentRatesService{
 
     //Connection to the DAO
     @Autowired
-    private IShipmentRatesDAO shipmentRatesSQLDAO;
+    private IShipmentRatesDAO shipmentRatesDAO;
 
-    public ShipmentRatesService(IShipmentRatesDAO shipmentRatesSQLDAO){
-        this.shipmentRatesSQLDAO = shipmentRatesSQLDAO;
+    public ShipmentRatesService(){
+
+    }
+
+    public ShipmentRatesService(IShipmentRatesDAO shipmentRatesDAO){
+        this.shipmentRatesDAO = shipmentRatesDAO;
     }
 
     /***
@@ -25,7 +29,7 @@ public class ShipmentRatesService implements IShipmentRatesService{
      */
     @Override
     public ShipmentRate saveRate(ShipmentRate shipmentRate) {
-        return shipmentRatesSQLDAO.saveRate(shipmentRate);
+        return shipmentRatesDAO.saveRate(shipmentRate);
     }
 
     /***
@@ -35,7 +39,7 @@ public class ShipmentRatesService implements IShipmentRatesService{
      */
     @Override
     public ShipmentRate findRate(int id){
-        ShipmentRate uniqueId = shipmentRatesSQLDAO.findRateById(id);
+        ShipmentRate uniqueId = shipmentRatesDAO.findRateById(id);
         return uniqueId;
     }
 
@@ -45,7 +49,7 @@ public class ShipmentRatesService implements IShipmentRatesService{
      */
     @Override
     public List<ShipmentRate> findAllRates(){
-        return shipmentRatesSQLDAO.findAllRates();
+        return shipmentRatesDAO.findAllRates();
     }
 
     /*
@@ -53,6 +57,6 @@ public class ShipmentRatesService implements IShipmentRatesService{
      */
     @Override
     public void delete(int id) {
-        shipmentRatesSQLDAO.delete(id);
+        shipmentRatesDAO.delete(id);
     }
 }

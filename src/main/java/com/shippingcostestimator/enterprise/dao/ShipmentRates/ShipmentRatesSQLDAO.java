@@ -2,12 +2,14 @@ package com.shippingcostestimator.enterprise.dao.ShipmentRates;
 
 import com.shippingcostestimator.enterprise.dto.ShipmentRate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Repository
+@Repository("ShipmentRatesDAO")
+@Profile({"dev", "default"})
 public class ShipmentRatesSQLDAO implements IShipmentRatesDAO{
 
     //Connection to the database.

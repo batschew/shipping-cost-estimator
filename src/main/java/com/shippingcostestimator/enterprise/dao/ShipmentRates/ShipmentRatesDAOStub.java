@@ -1,6 +1,7 @@
 package com.shippingcostestimator.enterprise.dao.ShipmentRates;
 
 import com.shippingcostestimator.enterprise.dto.ShipmentRate;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -9,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
+@Profile("test")
 public class ShipmentRatesDAOStub implements IShipmentRatesDAO{
 
     Map<Integer, ShipmentRate> allShipmentRates = new HashMap<>();
