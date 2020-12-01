@@ -13,6 +13,9 @@ public class ShipmentMapService implements IShipmentMapService{
     @Autowired
     private IShipmentMapDAO shipmentMapDAO;
 
+//    @Autowired
+//    private IShipmentRatesDAO shipmentRatesDAO;
+
     public ShipmentMapService(IShipmentMapDAO shipmentMapDAO){
         this.shipmentMapDAO = shipmentMapDAO;
     }
@@ -47,4 +50,9 @@ public class ShipmentMapService implements IShipmentMapService{
     public List<ShipmentMap> fetchAllShipments() {
         return shipmentMapDAO.fetchAllShipments();
     }
+
+//    @Override
+//    public List<Rate> fetchAllRates(String rate) throws IOException {
+//        return ShipmentRatesDAO.fetchShipmentRates(rate);
+//    }
 }

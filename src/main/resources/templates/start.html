@@ -24,21 +24,19 @@
 <body>
 <!--#region Package information -->
 
-
 <form action="#" th:action="@{/saveShipmentMap}" method="POST">
     <div id="packageInfoDiv" th:object="${packageInfo}">
         <h4 id="packageInfoHeader">Package Information</h4>
         <!--Carrier select dropdown-->
-        <div class="input-group mb-3" id="carrierSelect">
+        <div class="input-group mb-3" id="serviceSelect">
             <div class="input-group-prepend">
-                <label class="input-group-text" for="carrierSelect">Carrier</label>
+                <label class="input-group-text" for="serviceSelect">Service</label>
             </div>
-            <select class="custom-select" id="inputGroupCarrierSelect">
+            <select class="custom-select" id="inputGroupServiceSelect">
                 <option value="" selected></option>
-                <option value="FedEx">FedEx</option>
-                <option value="DHL express">DHL express</option>
-                <option value="UPS">UPS</option>
-                <option value="USPS">USPS</option>
+                <option value="Express">Express</option>
+                <option value="Priority">Priority</option>
+                <option value="ParcelSelect">Parcel Select</option>
             </select>
         </div>
         <div class="input-group mb-3" id="inputPackageWeight">

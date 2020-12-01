@@ -1,4 +1,4 @@
-package com.shippingcostestimator.enterprise.service;
+package com.shippingcostestimator.enterprise.service.PackageInfo;
 
 import java.io.IOException;
 

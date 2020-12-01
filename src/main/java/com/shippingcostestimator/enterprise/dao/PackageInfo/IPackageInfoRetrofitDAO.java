@@ -1,4 +1,4 @@
-package com.shippingcostestimator.enterprise.dao;
+package com.shippingcostestimator.enterprise.dao.PackageInfo;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

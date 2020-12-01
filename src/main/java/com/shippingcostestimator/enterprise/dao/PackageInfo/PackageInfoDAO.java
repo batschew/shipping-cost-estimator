@@ -1,5 +1,6 @@
-package com.shippingcostestimator.enterprise.dao;
+package com.shippingcostestimator.enterprise.dao.PackageInfo;
 
+import com.shippingcostestimator.enterprise.dao.RetrofitClientInstance;
 import org.springframework.stereotype.Repository;
 import retrofit2.Call;
 import retrofit2.Response;

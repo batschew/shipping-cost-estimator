@@ -1,6 +1,6 @@
-package com.shippingcostestimator.enterprise.service;
+package com.shippingcostestimator.enterprise.service.PackageInfo;
 
-import com.shippingcostestimator.enterprise.dao.IPackageInfoDAO;
+import com.shippingcostestimator.enterprise.dao.PackageInfo.IPackageInfoDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

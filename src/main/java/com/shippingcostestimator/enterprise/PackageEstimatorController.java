@@ -4,8 +4,12 @@ import com.easypost.EasyPost;
 import com.easypost.exception.EasyPostException;
 import com.easypost.model.Rate;
 import com.easypost.model.Shipment;
+import com.shippingcostestimator.enterprise.dao.ShipmentRates.IShipmentRatesDAO;
+import com.shippingcostestimator.enterprise.dao.ShipmentRates.ShipmentRatesSQLDAO;
 import com.shippingcostestimator.enterprise.dto.*;
 import com.shippingcostestimator.enterprise.service.IShipmentMapService;
+import com.shippingcostestimator.enterprise.service.IShipmentRatesService;
+import com.shippingcostestimator.enterprise.service.ShipmentRatesService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +21,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +31,9 @@ public class PackageEstimatorController {
 
     @Autowired
     IShipmentMapService ShipmentMapService;
+
+    @Autowired
+    IShipmentRatesService ShipmentRatesService;
 
     Logger log = LoggerFactory.getLogger(this.getClass());
 
@@ -94,13 +102,23 @@ public class PackageEstimatorController {
 
         //Console logging for debugging purposes, remove for production
         var rates = shipmentModel.getRates();
+        ShipmentRate shipmentRate = new ShipmentRate();
         for(Rate rate : rates){
-            System.out.println("Carrier: " + rate.getCarrier());
-            System.out.println("Service level: " + rate.getService());
+            String service = "Priority";
+//            if(service.equals(rate.getService())){
+//                //System.out.println("YES");
+//
+//            }
+
+            shipmentRate.setCarrier(rate.getCarrier());
+            shipmentRate.setService(rate.getService());
+            shipmentRate.setRate(rate.getRate());
+            System.out.println("Carrier: " + shipmentRate.getCarrier());
+            System.out.println("Service level: " + shipmentRate.getService());
             System.out.println("Est Delivery Days: " + rate.getEstDeliveryDays());
-            System.out.println("Delivery Days: " + rate.getDeliveryDays());
-            System.out.println("Rate: " + rate.getRate());
+            System.out.println("Rate: $" + shipmentRate.getRate());
             System.out.println("");
+            ShipmentRatesService.saveRate(shipmentRate);
         }
 
         try{
@@ -124,31 +142,4 @@ public class PackageEstimatorController {
         }
         return new ResponseEntity(newShipment, headers, HttpStatus.CREATED);
     }
-
-
-
-    /*
-     * Create a new shipment object with the data inputted in the UI.
-     *
-     * Returns:
-     * 201: Successful creation
-     * 409: Can't create because it already exists
-     *
-     * @param shipment a JSON representation of the shipment object
-     * @return the newly created shipment object
-     */
-//    @PostMapping(value="/shipment", consumes="application/json", produces="application/json")
-//    public ResponseEntity createShipment(@RequestBody Shipment shipment){
-//        Shipment newShipment;
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.setContentType(MediaType.APPLICATION_JSON);
-//        try{
-//            newShipment = shipmentService.saveEstimate(shipment);
-//        }catch(Exception e){
-//            return new ResponseEntity(headers, HttpStatus.CONFLICT);
-//        }
-//        return new ResponseEntity(newShipment, headers, HttpStatus.CREATED);
-//    }
-
-
 }
