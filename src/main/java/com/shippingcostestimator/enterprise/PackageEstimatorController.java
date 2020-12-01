@@ -25,10 +25,10 @@ import java.util.Map;
 public class PackageEstimatorController {
 
     @Autowired
-    IShipmentMapService shipmentMapService;
+    IShipmentMapService ShipmentMapService;
 
     @Autowired
-    IShipmentRatesService shipmentRatesService;
+    IShipmentRatesService ShipmentRatesService;
 
     Logger log = LoggerFactory.getLogger(this.getClass());
 
@@ -106,16 +106,21 @@ public class PackageEstimatorController {
             e.printStackTrace();
         }
 
+        //Parse Shipment object's rates and save each one to an object.
         try{
             var rates = shipmentModel.getRates();
             model.addAttribute("rates", rates);
+
+            //For each rate, save to an object.
             for(Rate rate : rates){
                 ShipmentRate shipmentRate = new ShipmentRate();
                 shipmentRate.setObject(fromAddress.getFromStreetOne());
                 shipmentRate.setCarrier(rate.getCarrier());
                 shipmentRate.setService(rate.getService());
                 shipmentRate.setRate(rate.getRate());
-                shipmentRatesService.saveRate(shipmentRate);
+
+                //Save to database.
+                ShipmentRatesService.saveRate(shipmentRate);
             }
         }catch(Exception e){
             e.printStackTrace();
@@ -125,42 +130,62 @@ public class PackageEstimatorController {
 
     }
 
+    /*
+    * Creates a new Shipment object.
+    *
+    * returns one of two status codes:
+    * 201: Created
+    * 409: Conflict
+     */
     @PostMapping(value="/shipmentMap", consumes="application/json", produces="application/json")
     public ResponseEntity createShipmentMap(@RequestBody ShipmentMap shipmentMap){
         ShipmentMap newShipment;
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         try{
-            newShipment = shipmentMapService.saveEstimate(shipmentMap);
+            newShipment = ShipmentMapService.saveEstimate(shipmentMap);
         }catch(Exception e){
             return new ResponseEntity(headers, HttpStatus.CONFLICT);
         }
         return new ResponseEntity(newShipment, headers, HttpStatus.CREATED);
     }
 
+    /*
+    * Finds a specific shipmentRate object by its ID.
+    *
+    * returns a shipmentRate and a 200 OK status code.
+     */
     @GetMapping("/rate/{id}")
     public ResponseEntity findShipmentRate(@PathVariable("id") int id){
-        ShipmentRate foundRate = shipmentRatesService.findRate(id);
+        ShipmentRate foundRate = ShipmentRatesService.findRate(id);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         return new ResponseEntity(foundRate, headers, HttpStatus.OK);
     }
 
+    /*
+    * Fetches all the shipmentRate objects.
+    *
+    * returns all shipmentRates.
+     */
     @GetMapping("/rate")
     public ResponseEntity findAllRates(){
-        List<ShipmentRate> allRates = shipmentRatesService.findAllRates();
+        List<ShipmentRate> allRates = ShipmentRatesService.findAllRates();
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         return new ResponseEntity(allRates, headers, HttpStatus.OK);
     }
 
+    /*
+    * Deletes a specific shipmentRate by id.
+     */
     @DeleteMapping("/rate/{id}")
     public ResponseEntity deleteRate(@PathVariable("id") int id){
         try{
-            shipmentRatesService.delete(id);
+            ShipmentRatesService.delete(id);
             return new ResponseEntity(HttpStatus.OK);
         }catch(Exception e){
-            return new ResponseEntity(HttpStatus.CONFLICT);
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

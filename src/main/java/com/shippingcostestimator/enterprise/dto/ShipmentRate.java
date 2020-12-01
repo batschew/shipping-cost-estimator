@@ -6,7 +6,6 @@ import lombok.Data;
 import javax.persistence.*;
 
 @Entity
-//@Table(name="shipment_rate")
 public @Data
 class ShipmentRate {
     @Id

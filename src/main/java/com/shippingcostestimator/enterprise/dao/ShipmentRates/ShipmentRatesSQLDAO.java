@@ -5,29 +5,40 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Repository
 public class ShipmentRatesSQLDAO implements IShipmentRatesDAO{
 
-    //Map<Integer, ShipmentRate> allShipmentRates = new HashMap<>();
-
+    //Connection to the database.
     @Autowired
     ShipmentRatesRepository shipmentRatesRepository;
 
+    /***
+     * Saves a ShipmentRate estimate to a database.
+     * @param shipmentRate
+     * @return Saved shipmentRate estimate.
+     */
     @Override
     public ShipmentRate saveRate(ShipmentRate shipmentRate) {
         ShipmentRate savedShipment = shipmentRatesRepository.save(shipmentRate);
         return savedShipment;
     }
 
+    /***
+     * Returns a ShipmentRate object with a specified integer ID.
+     * @param id
+     * @return  a specific shipment based on the id.
+     */
     @Override
     public ShipmentRate findRateById(int id) {
         return shipmentRatesRepository.findById(id).get();
     }
 
+    /***
+     * Returns a list of all ShipmentRate objects that are currently in use by the program.
+     * @return a list of all shipmentRates.
+     */
     @Override
     public List<ShipmentRate> findAllRates() {
         List<ShipmentRate> shipmentList = new ArrayList<>();
@@ -38,6 +49,9 @@ public class ShipmentRatesSQLDAO implements IShipmentRatesDAO{
         return shipmentList;
     }
 
+    /*
+     * Deletes a ShipmentRate object.
+     */
     @Override
     public void delete(int id){
         shipmentRatesRepository.deleteById(id);
