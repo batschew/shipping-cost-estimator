@@ -153,6 +153,14 @@
 </form>
 <p/>
 <h2>Rates</h2>
+<div id="ratesDisplay">
+    <div th:each="rate : ${rates}">
+        <p th:text="${'Carrier: ' + rate.getCarrier()}"></p>
+        <p th:text="${'Service level: ' + rate.getService()}"></p>
+        <p th:text="${'Est delivery days: ' + rate.getEstDeliveryDays()}"></p>
+        <p th:text="${'Cost: $' + rate.getRate()}"></p>
+    </div>
+</div>
 <hr>
 </body>
 </html>

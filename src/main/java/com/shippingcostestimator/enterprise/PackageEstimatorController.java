@@ -51,7 +51,7 @@ public class PackageEstimatorController {
     }
 
     @PostMapping("/saveShipmentMap")
-    public String saveShipmentMap(FromAddress fromAddress, ToAddress toAddress, PackageInfo packageInfo){
+    public String saveShipmentMap(FromAddress fromAddress, ToAddress toAddress, PackageInfo packageInfo, Model model){
 
         EasyPost.apiKey = "EZTK773d7864beb64671aadc6a9d64777a6boAq0h9WzLFA70as0wPnkrQ";
 
@@ -96,6 +96,7 @@ public class PackageEstimatorController {
 
         //Console logging for debugging purposes, remove for production
         var rates = shipmentModel.getRates();
+        model.addAttribute("rates", rates);
         ShipmentRate shipmentRate = new ShipmentRate();
         for(Rate rate : rates){
             String service = "Priority";
