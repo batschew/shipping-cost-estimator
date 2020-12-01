@@ -3,13 +3,9 @@ package com.shippingcostestimator.enterprise;
 import com.easypost.EasyPost;
 import com.easypost.exception.EasyPostException;
 import com.easypost.model.Rate;
-import com.easypost.model.Shipment;
-import com.shippingcostestimator.enterprise.dao.ShipmentRates.IShipmentRatesDAO;
-import com.shippingcostestimator.enterprise.dao.ShipmentRates.ShipmentRatesSQLDAO;
 import com.shippingcostestimator.enterprise.dto.*;
 import com.shippingcostestimator.enterprise.service.IShipmentMapService;
-import com.shippingcostestimator.enterprise.service.IShipmentRatesService;
-import com.shippingcostestimator.enterprise.service.ShipmentRatesService;
+import com.shippingcostestimator.enterprise.service.ShipmentRates.IShipmentRatesService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,19 +17,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Controller // Decides what renders when a user hits a URL or endpoint
 public class PackageEstimatorController {
 
     @Autowired
-    IShipmentMapService ShipmentMapService;
+    IShipmentMapService shipmentMapService;
 
     @Autowired
-    IShipmentRatesService ShipmentRatesService;
+    IShipmentRatesService shipmentRatesService;
 
     Logger log = LoggerFactory.getLogger(this.getClass());
 
@@ -118,11 +112,11 @@ public class PackageEstimatorController {
             System.out.println("Est Delivery Days: " + rate.getEstDeliveryDays());
             System.out.println("Rate: $" + shipmentRate.getRate());
             System.out.println("");
-            ShipmentRatesService.saveRate(shipmentRate);
+            shipmentRatesService.saveRate(shipmentRate);
         }
 
         try{
-            ShipmentMapService.saveEstimate(shipment);
+            shipmentMapService.saveEstimate(shipment);
         }catch(Exception e){
             e.printStackTrace();
             return "start";
@@ -136,10 +130,18 @@ public class PackageEstimatorController {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         try{
-            newShipment = ShipmentMapService.saveEstimate(shipmentMap);
+            newShipment = shipmentMapService.saveEstimate(shipmentMap);
         }catch(Exception e){
             return new ResponseEntity(headers, HttpStatus.CONFLICT);
         }
         return new ResponseEntity(newShipment, headers, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/rate/{id}")
+    public ResponseEntity findShipmentRate(@PathVariable("id") int id){
+        ShipmentRate foundRate = shipmentRatesService.findRate(id);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        return new ResponseEntity(foundRate, headers, HttpStatus.OK);
     }
 }

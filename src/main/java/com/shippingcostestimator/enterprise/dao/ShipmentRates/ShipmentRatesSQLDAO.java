@@ -4,7 +4,9 @@ import com.shippingcostestimator.enterprise.dto.ShipmentRate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Repository
@@ -21,13 +23,23 @@ public class ShipmentRatesSQLDAO implements IShipmentRatesDAO{
         return savedShipment;
     }
 
-//    public List<ShipmentRate> fetchShipmentRates(String rate) throws IOException {
-//        Retrofit retrofitInstance = RetrofitClientInstance.getRetrofitInstance();
-//        IShipmentRatesRetrofitDAO shipmentRatesRetrofitDAO = retrofitInstance.create(IShipmentRatesRetrofitDAO.class);
-//
-//        Call<List<ShipmentRate>> ratesData = shipmentRatesRetrofitDAO.getRates(rate);
-//        Response<List<ShipmentRate>> execute = ratesData.execute();
-//        List<ShipmentRate> ratesFinal = execute.body();
-//        return ratesFinal;
-//    }
+    @Override
+    public ShipmentRate findRateById(int id) {
+        return shipmentRatesRepository.findById(id).get();
+    }
+
+    @Override
+    public List<ShipmentRate> findAllRates() {
+        List<ShipmentRate> shipmentList = new ArrayList<>();
+        Iterable<ShipmentRate> iteratedList = shipmentRatesRepository.findAll();
+        for(ShipmentRate shipmentRate : iteratedList){
+            shipmentList.add(shipmentRate);
+        }
+        return shipmentList;
+    }
+
+    @Override
+    public void delete(int id){
+        shipmentRatesRepository.deleteById(id);
+    }
 }
