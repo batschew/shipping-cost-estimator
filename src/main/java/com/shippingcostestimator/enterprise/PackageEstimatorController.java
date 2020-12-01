@@ -18,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller // Decides what renders when a user hits a URL or endpoint
@@ -50,6 +51,17 @@ public class PackageEstimatorController {
         return "start";
     }
 
+    /*
+    * Saves a new ShipmentRates object.
+    *
+    * saveShipmentMap does two things: it creates a Shipment object that is consumed by the API,
+    * and then it produces three Rates objects and saves it to a database.
+    *
+    * @param fromAddress the fromAddress map
+    * @param toAddress the toAddress map
+    * @param packageInfo the packageInfo map
+    * @return start
+     */
     @PostMapping("/saveShipmentMap")
     public String saveShipmentMap(FromAddress fromAddress, ToAddress toAddress, PackageInfo packageInfo, Model model){
 
@@ -94,30 +106,23 @@ public class PackageEstimatorController {
             e.printStackTrace();
         }
 
-        //Console logging for debugging purposes, remove for production
-        var rates = shipmentModel.getRates();
-        model.addAttribute("rates", rates);
-
-        for(Rate rate : rates){
-            ShipmentRate shipmentRate = new ShipmentRate();
-            shipmentRate.setCarrier(rate.getCarrier());
-            shipmentRate.setService(rate.getService());
-            shipmentRate.setRate(rate.getRate());
-            System.out.println("Carrier: " + shipmentRate.getCarrier());
-            System.out.println("Service level: " + shipmentRate.getService());
-            System.out.println("Est Delivery Days: " + rate.getEstDeliveryDays());
-            System.out.println("Rate: $" + shipmentRate.getRate());
-            System.out.println("");
-            shipmentRatesService.saveRate(shipmentRate);
-        }
-
         try{
-            shipmentMapService.saveEstimate(shipment);
+            var rates = shipmentModel.getRates();
+            model.addAttribute("rates", rates);
+            for(Rate rate : rates){
+                ShipmentRate shipmentRate = new ShipmentRate();
+                shipmentRate.setObject(fromAddress.getFromStreetOne());
+                shipmentRate.setCarrier(rate.getCarrier());
+                shipmentRate.setService(rate.getService());
+                shipmentRate.setRate(rate.getRate());
+                shipmentRatesService.saveRate(shipmentRate);
+            }
         }catch(Exception e){
             e.printStackTrace();
             return "start";
         }
         return "start";
+
     }
 
     @PostMapping(value="/shipmentMap", consumes="application/json", produces="application/json")
@@ -139,5 +144,23 @@ public class PackageEstimatorController {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         return new ResponseEntity(foundRate, headers, HttpStatus.OK);
+    }
+
+    @GetMapping("/rate")
+    public ResponseEntity findAllRates(){
+        List<ShipmentRate> allRates = shipmentRatesService.findAllRates();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        return new ResponseEntity(allRates, headers, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/rate/{id}")
+    public ResponseEntity deleteRate(@PathVariable("id") int id){
+        try{
+            shipmentRatesService.delete(id);
+            return new ResponseEntity(HttpStatus.OK);
+        }catch(Exception e){
+            return new ResponseEntity(HttpStatus.CONFLICT);
+        }
     }
 }
