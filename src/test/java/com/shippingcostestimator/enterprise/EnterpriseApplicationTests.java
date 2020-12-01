@@ -27,8 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class EnterpriseApplicationTests {
 
     private IShipmentMapService shipmentMapService;
-    private ShipmentMap shipment = new ShipmentMap();
-    private PackageInfo packageInfo = new PackageInfo();
+    private ShipmentMap shipmentMap = new ShipmentMap();
 
     @MockBean
     private IShipmentMapDAO shipmentMapDAO;
@@ -39,28 +38,28 @@ class EnterpriseApplicationTests {
 
     //Checks if fetching a shipment functions correctly.
     @Test
-    void fetchShipmentById_returnsShipmentWithId0() throws Exception{
-        givenShipmentDataAvailable();
-        whenShipmentWithId0Exists();
-        whenShipmentDataWithId0();
-        thenReturnShipmentWithId0();
+    void fetchShipmentById_returnsShipmentWithId5() throws Exception{
+        givenShipmentMapDataAvailable();
+        whenShipmentWithId5Exists();
+        whenShipmentDataWithId5();
+        thenReturnShipmentWithId5();
     }
 
-    private void givenShipmentDataAvailable(){
-        Mockito.when(shipmentMapDAO.saveEstimate(shipment)).thenReturn(shipment);
+    private void givenShipmentMapDataAvailable(){
+        Mockito.when(shipmentMapDAO.saveEstimate(shipmentMap)).thenReturn(shipmentMap);
         shipmentMapService = new ShipmentMapService(shipmentMapDAO);
     }
 
-    private void whenShipmentWithId0Exists(){
+    private void whenShipmentWithId5Exists(){
 
         EasyPost.apiKey = "x";
-        ShipmentMap shipmentMap = new ShipmentMap();
         FromAddress fromAddress = new FromAddress();
         ToAddress toAddress = new ToAddress();
         PackageInfo parcel = new PackageInfo();
 
 
         fromAddress.setId(1);
+
         fromAddress.setFromStreetOne("1234 Street");
         fromAddress.setFromZip("1");
         String streetOneValue = fromAddress.getFromStreetOne();
@@ -73,12 +72,16 @@ class EnterpriseApplicationTests {
         String destinationZip = toAddress.getToZip();
 
         parcel.setPackageInfoId(1);
-        //parcel.setPredefinedPackage("MediumFlatRateBox");
         parcel.setWeight(32.50);
-        double weight = parcel.getWeight();
-        //String predefinedPackage = parcel.getPredefinedPackage();
 
-        //shipment.setId(1);
+
+        String streetTwoValue = toAddress.getStreetOne();
+        String destinationZip = toAddress.getZip();
+        String streetOneValue = fromAddress.getStreetOne();
+        String originZip = fromAddress.getZip();
+        double weight = parcel.getWeight();
+
+
 
         HashMap toAddressMap = new HashMap<String, Object>();
         toAddressMap.put("street1", streetTwoValue);
@@ -101,8 +104,6 @@ class EnterpriseApplicationTests {
         shipment.put("from_address", shipmentMap.getFromAddress());
         shipment.put("parcel", shipmentMap.getParcel());
 
-
-
         //After this point, we make the shipment itself and send it through the API.
         Shipment shipmentTwo = null;
         Rate rate = null;
@@ -113,46 +114,87 @@ class EnterpriseApplicationTests {
             e.printStackTrace();
         }
 
-        Mockito.when(shipmentMapDAO.findShipById(0)).thenReturn(shipmentMap);
+        shipmentMap.setId(5);
+        Mockito.when(shipmentMapDAO.findShipById(5)).thenReturn(shipmentMap);
     }
 
-    private void whenShipmentDataWithId0(){
-        shipment = shipmentMapService.findShipmentById(0);
+    private void whenShipmentDataWithId5(){
+        shipmentMap = shipmentMapService.findShipmentById(5);
     }
 
-    private void thenReturnShipmentWithId0(){
+    private void thenReturnShipmentWithId5(){
 
-        int id = shipment.getId();
-        assertEquals(0, id);
+        int id = shipmentMap.getId();
+        assertEquals(5, id);
     }
-//
-//    //Checks if shipment can be saved.
-//    @Test
-//    void saveShipmentToHashMap() throws Exception{
-//        givenShipmentDataAvailable();
-//        whenNewShipmentCreated();
-//        thenCreateNewShipmentAndAddToTotalCost();
-//    }
-//
-//    //Checks if shipments can be loaded.
-//    @Test
-//    void loadShipments() {
-//        givenShipmentDataAvailable();
-//        whenNewShipmentCreated();
-//        thenLoadShipments();
-//    }
-//
-//    private void whenNewShipmentCreated(){
-//        shipment.setPackageId(2);
-//        shipment.setPackageName("Stub Package II");
-//    }
-//
-//    private void thenCreateNewShipmentAndAddToTotalCost() throws Exception {
-//        Shipment shipmentTwo = shipmentService.saveEstimate(shipment);
-//        assertEquals(shipment, shipmentTwo);
-//    }
-//
-//    private void thenLoadShipments() {
-//        List<Shipment> shipments = shipmentService.fetchAllShipments();
-//    }
+
+    @Test
+    void saveShipmentMapToHashmap() throws Exception{
+        givenShipmentMapDataAvailable();
+        whenNewShipmentMapCreated();
+        thenCreateNewShipmentMap();
+    }
+
+    private void whenNewShipmentMapCreated() throws Exception {
+        EasyPost.apiKey = "x";
+        FromAddress fromAddress = new FromAddress();
+        ToAddress toAddress = new ToAddress();
+        PackageInfo parcel = new PackageInfo();
+
+
+        fromAddress.setId(1);
+        fromAddress.setStreetOne("1234 Street");
+        fromAddress.setZip("1");
+        toAddress.setId(1);
+        toAddress.setStreetOne("3421 Avenue");
+        toAddress.setZip("1");
+        parcel.setPackageInfoId(1);
+        parcel.setWeight(32.50);
+
+
+        String streetTwoValue = toAddress.getStreetOne();
+        String destinationZip = toAddress.getZip();
+        String streetOneValue = fromAddress.getStreetOne();
+        String originZip = fromAddress.getZip();
+        double weight = parcel.getWeight();
+
+
+
+        HashMap toAddressMap = new HashMap<String, Object>();
+        toAddressMap.put("street1", streetTwoValue);
+        toAddressMap.put("zip", destinationZip);
+
+        HashMap fromAddressMap = new HashMap<String, Object>();
+        fromAddressMap.put("street1", streetOneValue);
+        fromAddressMap.put("zip", originZip);
+
+        HashMap parcelMap = new HashMap<String, Object>();
+        parcelMap.put("weight", weight);
+        //parcelMap.put("predefined_package", predefinedPackage);
+
+        shipmentMap.setFromAddress(fromAddressMap);
+        shipmentMap.setToAddress(toAddressMap);
+        shipmentMap.setParcel(parcelMap);
+
+        Map<String, Object> shipment = new HashMap<String, Object>();
+        shipment.put("to_address", shipmentMap.getToAddress());
+        shipment.put("from_address", shipmentMap.getFromAddress());
+        shipment.put("parcel", shipmentMap.getParcel());
+    }
+
+    private void thenCreateNewShipmentMap() throws Exception {
+        ShipmentMap shipmentTwo = shipmentMapService.saveEstimate(shipmentMap);
+        assertEquals(shipmentMap, shipmentTwo);
+    }
+
+    @Test
+    void LoadShipmentMaps() throws Exception{
+        givenShipmentMapDataAvailable();
+        whenNewShipmentMapCreated();
+        thenLoadShipmentMaps();
+    }
+
+    private void thenLoadShipmentMaps() {
+        List<ShipmentMap> shipmentMaps = shipmentMapService.fetchAllShipments();
+    }
 }
