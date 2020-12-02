@@ -23,7 +23,7 @@
 </head>
 <body>
 <!--#region Package information -->
-
+<div th:replace="fragments/topnav.html"></div>
 <form action="#" th:action="@{/saveShipmentMap}" method="POST">
     <div id="packageInfoDiv" th:object="${packageInfo}">
         <h4 id="packageInfoHeader">Package Information</h4>
@@ -42,7 +42,7 @@
                    th:field="*{width}">
         </div>
         <div class="input-group mb-3" id="inputPackageHeight">
-            <div class="input-group-prepend" >
+            <div class="input-group-prepend">
                 <span class="input-group-text">Height (in)</span>
             </div>
             <input type="text" placeholder="" class="form-control" aria-describedby="basic-addon1"
@@ -56,111 +56,112 @@
                    name="weight"
                    th:field="*{weight}">
         </div>
-    <!--#endregion Package Information -->
+        <!--#endregion Package Information -->
 
-    <!--#region Starting Address -->
-    <div id="startingAddressDiv" th:object="${fromAddress}">
-        <h4 id="startingAddressHeader">Starting address</h4>
-        <!--Starting address line 1 input-->
-        <div class="input-group mb-3" id="inputStartingAddressLine1">
-            <div class="input-group-prepend">
-                <span class="input-group-text">Address line 1</span>
+        <!--#region Starting Address -->
+        <div id="startingAddressDiv" th:object="${fromAddress}">
+            <h4 id="startingAddressHeader">Starting address</h4>
+            <!--Starting address line 1 input-->
+            <div class="input-group mb-3" id="inputStartingAddressLine1">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Address line 1</span>
+                </div>
+                <input type="text" placeholder="Street and number" class="form-control" aria-describedby="basic-addon1"
+                       th:field="*{fromStreetOne}">
             </div>
-            <input type="text" placeholder="Street and number" class="form-control" aria-describedby="basic-addon1"
-                   th:field="*{fromStreetOne}">
-        </div>
 
-        <!--Starting address line 2 input-->
-        <div class="input-group mb-3" id="inputStartingAddressLine2">
-            <div class="input-group-prepend">
-                <span class="input-group-text">Address line 2</span>
+            <!--Starting address line 2 input-->
+            <div class="input-group mb-3" id="inputStartingAddressLine2">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Address line 2</span>
+                </div>
+                <input type="text" placeholder="Apartment/Suite" class="form-control" aria-describedby="basic-addon1"
+                       th:field="*{fromStreetTwo}">
             </div>
-            <input type="text" placeholder="Apartment/Suite" class="form-control" aria-describedby="basic-addon1"
-                   th:field="*{fromStreetTwo}">
-        </div>
 
-        <!--Starting city input-->
-        <div class="input-group mb-3" id="inputStartingCity">
-            <div class="input-group-prepend">
-                <span class="input-group-text">City</span>
+            <!--Starting city input-->
+            <div class="input-group mb-3" id="inputStartingCity">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">City</span>
+                </div>
+                <input type="text" placeholder="City" class="form-control" aria-describedby="basic-addon1"
+                       th:field="*{fromCity}">
             </div>
-            <input type="text" placeholder="City" class="form-control" aria-describedby="basic-addon1"
-                   th:field="*{fromCity}">
-        </div>
 
-        <!--Starting city input-->
-        <div class="input-group mb-3" id="inputStartingZip">
-            <div class="input-group-prepend">
-                <span class="input-group-text">Zip Code</span>
+            <!--Starting city input-->
+            <div class="input-group mb-3" id="inputStartingZip">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Zip Code</span>
+                </div>
+                <input type="text" placeholder="Zip Code" class="form-control" aria-describedby="basic-addon1"
+                       th:field="*{fromZip}">
             </div>
-            <input type="text" placeholder="Zip Code" class="form-control" aria-describedby="basic-addon1"
-                   th:field="*{fromZip}">
-        </div>
 
-        <!--Starting State/Province/Region input-->
-        <div class="input-group mb-3" id="inputStartingArea">
-            <div class="input-group-prepend">
-                <span class="input-group-text">State/Province/Region</span>
+            <!--Starting State/Province/Region input-->
+            <div class="input-group mb-3" id="inputStartingArea">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">State/Province/Region</span>
+                </div>
+                <input type="text" placeholder="State/Province/Region" class="form-control"
+                       aria-describedby="basic-addon1"
+                       th:field="*{fromState}">
             </div>
-            <input type="text" placeholder="State/Province/Region" class="form-control" aria-describedby="basic-addon1"
-                   th:field="*{fromState}">
         </div>
+        <!--#endregion Starting Address -->
+
+        <!--#region Destination Address -->
+        <div id="destinationAddressDiv" th:object="${toAddress}">
+            <h4 id="destinationAddressHeader">Destination address</h4>
+            <!--Destination address line 1 input-->
+            <div class="input-group mb-3" id="inputDestinationAddressLine1">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Address line 1</span>
+                </div>
+                <input type="text" placeholder="Street and number" class="form-control" aria-describedby="basic-addon1"
+                       th:field="*{toStreetOne}">
+            </div>
+
+            <!--Destination address line 2 input-->
+            <div class="input-group mb-3" id="inputDestinationAddressLine2">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Address line 2</span>
+                </div>
+                <input type="text" placeholder="Apartment/Suite" class="form-control" aria-describedby="basic-addon1"
+                       th:field="*{toStreetTwo}">
+            </div>
+
+            <!--Destination city input-->
+            <div class="input-group mb-3" id="inputDestinationCity">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">City</span>
+                </div>
+                <input type="text" placeholder="City" class="form-control" aria-describedby="basic-addon1"
+                       th:field="*{toCity}">
+            </div>
+
+            <!--Destination Zip Code input-->
+            <div class="input-group mb-3" id="inputDestinationZip">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Zip Code</span>
+                </div>
+                <input type="text" placeholder="Zip Code" class="form-control" aria-describedby="basic-addon1"
+                       th:field="*{toZip}">
+            </div>
+
+            <!--Destination State/Province/Region input-->
+            <div class="input-group mb-3" id="inputDestinationArea">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">State/Province/Region</span>
+                </div>
+                <input type="text" placeholder="State/Province/Region" class="form-control"
+                       aria-describedby="basic-addon1"
+                       th:field="*{toState}">
+            </div>
+        </div>
+        <!--#endregion Destination Address -->
+        <button type="submit" class="btn btn-secondary btn-lg" id="btnCalculate">Calculate</button>
     </div>
-    <!--#endregion Starting Address -->
-
-    <!--#region Destination Address -->
-    <div id="destinationAddressDiv" th:object="${toAddress}">
-        <h4 id="destinationAddressHeader">Destination address</h4>
-        <!--Destination address line 1 input-->
-        <div class="input-group mb-3" id="inputDestinationAddressLine1">
-            <div class="input-group-prepend">
-                <span class="input-group-text">Address line 1</span>
-            </div>
-            <input type="text" placeholder="Street and number" class="form-control" aria-describedby="basic-addon1"
-                   th:field="*{toStreetOne}">
-        </div>
-
-        <!--Destination address line 2 input-->
-        <div class="input-group mb-3" id="inputDestinationAddressLine2">
-            <div class="input-group-prepend">
-                <span class="input-group-text">Address line 2</span>
-            </div>
-            <input type="text" placeholder="Apartment/Suite" class="form-control" aria-describedby="basic-addon1"
-                   th:field="*{toStreetTwo}">
-        </div>
-
-        <!--Destination city input-->
-        <div class="input-group mb-3" id="inputDestinationCity">
-            <div class="input-group-prepend">
-                <span class="input-group-text">City</span>
-            </div>
-            <input type="text" placeholder="City" class="form-control" aria-describedby="basic-addon1"
-                   th:field="*{toCity}">
-        </div>
-
-        <!--Destination Zip Code input-->
-        <div class="input-group mb-3" id="inputDestinationZip">
-            <div class="input-group-prepend">
-                <span class="input-group-text">Zip Code</span>
-            </div>
-            <input type="text" placeholder="Zip Code" class="form-control" aria-describedby="basic-addon1"
-                   th:field="*{toZip}">
-        </div>
-
-        <!--Destination State/Province/Region input-->
-        <div class="input-group mb-3" id="inputDestinationArea">
-            <div class="input-group-prepend">
-                <span class="input-group-text">State/Province/Region</span>
-            </div>
-            <input type="text" placeholder="State/Province/Region" class="form-control" aria-describedby="basic-addon1"
-                   th:field="*{toState}">
-        </div>
-    </div>
-    <!--#endregion Destination Address -->
-
-    <button type="submit" class="btn btn-secondary btn-lg" id="btnCalculate">Calculate</button>
 </form>
-<p/>
 <h2>Rates</h2>
 <div id="ratesDisplay">
     <div th:each="rate : ${rates}">

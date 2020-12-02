@@ -47,6 +47,16 @@ public class PackageEstimatorController {
         return "start";
     }
 
+    @RequestMapping("/shipments")
+    public String shipments(Model model){
+        var shipments = ShipmentRatesService.findAllRates();
+        for(ShipmentRate shipment : shipments){
+            System.out.println("Carrier: " + shipment.getCarrier());
+            System.out.println("Service level: " + shipment.getService());
+            System.out.println("Rate: $" + shipment.getRate());
+        }
+        return "shipments";
+    }
     /*
     * Saves a new ShipmentRates object.
     *
