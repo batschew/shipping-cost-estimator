@@ -130,6 +130,9 @@ public class PackageEstimatorController {
                 ShipmentRate shipmentRate = new ShipmentRate();
                 shipmentRate.setFromRateAddress(fromAddress.getFromStreetOne() + " " + fromAddress.getFromStreetTwo() + " " + fromAddress.getFromCity() + ", " + fromAddress.getFromState() + " " + fromAddress.getFromZip()  );
                 shipmentRate.setToRateAddress(toAddress.getToStreetOne() + " " + toAddress.getToStreetTwo() + " " + toAddress.getToCity() + ", " + toAddress.getToState() + " " + toAddress.getToZip() );
+                shipmentRate.setLength(packageInfo.getLength());
+                shipmentRate.setWidth(packageInfo.getWidth());
+                shipmentRate.setHeight(packageInfo.getHeight());
                 shipmentRate.setCarrier(rate.getCarrier());
                 shipmentRate.setService(rate.getService());
                 shipmentRate.setRate(rate.getRate());

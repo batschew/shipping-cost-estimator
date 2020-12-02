@@ -37,6 +37,7 @@
             <p th:text="${'ID: ' + shipment.getId()}"></p>
             <p th:text="${'From Address: ' + shipment.getFromRateAddress()}"></p>
             <p th:text="${'To Address: ' + shipment.getToRateAddress()}"></p>
+            <p th:text="${'Length: ' + shipment.getLength() + ', Width: ' + shipment.getWidth() + ', Height: ' + shipment.getHeight()}"></p>
             <p th:text="${'Carrier: ' + shipment.getCarrier()}"></p>
             <p th:text="${'Service Level: ' + shipment.getService()}"></p>
             <p th:text="${'Rate: $' + shipment.getRate()}"></p>

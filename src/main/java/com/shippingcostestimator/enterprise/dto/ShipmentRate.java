@@ -16,6 +16,12 @@ class ShipmentRate {
     private String fromRateAddress;
     @SerializedName("toRateAddress")
     private String toRateAddress;
+    @SerializedName("length")
+    private double length;
+    @SerializedName("width")
+    private double width;
+    @SerializedName("height")
+    private double height;
     @SerializedName("service")
     private String service;
     @SerializedName("rate")
