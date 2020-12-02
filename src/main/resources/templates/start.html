@@ -24,7 +24,6 @@
 <body>
 <!--#region Package information -->
 
-
 <form action="#" th:action="@{/saveShipmentMap}" method="POST">
     <div id="packageInfoDiv" th:object="${packageInfo}">
         <h4 id="packageInfoHeader">Package Information</h4>
@@ -57,9 +56,6 @@
                    name="weight"
                    th:field="*{weight}">
         </div>
-
-
-    </div>
     <!--#endregion Package Information -->
 
     <!--#region Starting Address -->

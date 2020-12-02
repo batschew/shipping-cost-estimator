@@ -2,9 +2,9 @@ package com.shippingcostestimator.enterprise;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 // Starts up Spring Boot instance
-
 @SpringBootApplication
 public class EnterpriseApplication {
 

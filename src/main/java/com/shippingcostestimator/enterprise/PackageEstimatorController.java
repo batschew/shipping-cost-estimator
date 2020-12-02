@@ -3,9 +3,8 @@ package com.shippingcostestimator.enterprise;
 import com.easypost.EasyPost;
 import com.easypost.exception.EasyPostException;
 import com.easypost.model.Rate;
-import com.easypost.model.Shipment;
 import com.shippingcostestimator.enterprise.dto.*;
-import com.shippingcostestimator.enterprise.service.IShipmentMapService;
+import com.shippingcostestimator.enterprise.service.IShipmentRatesService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +24,7 @@ import java.util.Map;
 public class PackageEstimatorController {
 
     @Autowired
-    IShipmentMapService ShipmentMapService;
+    IShipmentRatesService ShipmentRatesService;
 
     Logger log = LoggerFactory.getLogger(this.getClass());
 
@@ -48,6 +47,17 @@ public class PackageEstimatorController {
         return "start";
     }
 
+    /*
+    * Saves a new ShipmentRates object.
+    *
+    * saveShipmentMap does two things: it creates a Shipment object that is consumed by the API,
+    * and then it produces three Rates objects and saves it to a database.
+    *
+    * @param fromAddress the fromAddress map
+    * @param toAddress the toAddress map
+    * @param packageInfo the packageInfo map
+    * @return start
+     */
     @PostMapping("/saveShipmentMap")
     public String saveShipmentMap(FromAddress fromAddress, ToAddress toAddress, PackageInfo packageInfo, Model model){
 
@@ -95,64 +105,86 @@ public class PackageEstimatorController {
             e.printStackTrace();
         }
 
-        //Console logging for debugging purposes, remove for production
-        var rates = shipmentModel.getRates();
-        model.addAttribute("rates", rates);
-        for(Rate rate : rates){
-            System.out.println("Carrier: " + rate.getCarrier());
-            System.out.println("Service level: " + rate.getService());
-            System.out.println("Est Delivery Days: " + rate.getEstDeliveryDays());
-            System.out.println("Delivery Days: " + rate.getDeliveryDays());
-            System.out.println("Rate: " + rate.getRate());
-            System.out.println("");
-        }
-
+        //Parse Shipment object's rates and save each one to an object.
         try{
-            ShipmentMapService.saveEstimate(shipment);
+            var rates = shipmentModel.getRates();
+            model.addAttribute("rates", rates);
+
+            //For each rate, save to an object.
+            for(Rate rate : rates){
+                ShipmentRate shipmentRate = new ShipmentRate();
+                shipmentRate.setObject(fromAddress.getFromStreetOne());
+                shipmentRate.setCarrier(rate.getCarrier());
+                shipmentRate.setService(rate.getService());
+                shipmentRate.setRate(rate.getRate());
+
+                //Save to database.
+                ShipmentRatesService.saveRate(shipmentRate);
+            }
         }catch(Exception e){
             e.printStackTrace();
             return "start";
         }
         return "start";
+
     }
 
-    @PostMapping(value="/shipmentMap", consumes="application/json", produces="application/json")
-    public ResponseEntity createShipmentMap(@RequestBody ShipmentMap shipmentMap){
-        ShipmentMap newShipment;
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        try{
-            newShipment = ShipmentMapService.saveEstimate(shipmentMap);
-        }catch(Exception e){
-            return new ResponseEntity(headers, HttpStatus.CONFLICT);
-        }
-        return new ResponseEntity(newShipment, headers, HttpStatus.CREATED);
-    }
-
-
-
-    /*
-     * Create a new shipment object with the data inputted in the UI.
-     *
-     * Returns:
-     * 201: Successful creation
-     * 409: Can't create because it already exists
-     *
-     * @param shipment a JSON representation of the shipment object
-     * @return the newly created shipment object
-     */
-//    @PostMapping(value="/shipment", consumes="application/json", produces="application/json")
-//    public ResponseEntity createShipment(@RequestBody Shipment shipment){
-//        Shipment newShipment;
+//    /*
+//    * Creates a new Shipment object.
+//    *
+//    * returns one of two status codes:
+//    * 201: Created
+//    * 409: Conflict
+//     */
+//    @PostMapping(value="/shipmentMap", consumes="application/json", produces="application/json")
+//    public ResponseEntity createShipmentMap(@RequestBody ShipmentMap shipmentMap){
+//        ShipmentMap newShipment;
 //        HttpHeaders headers = new HttpHeaders();
 //        headers.setContentType(MediaType.APPLICATION_JSON);
 //        try{
-//            newShipment = shipmentService.saveEstimate(shipment);
+//            newShipment = ShipmentMapService.saveEstimate(shipmentMap);
 //        }catch(Exception e){
 //            return new ResponseEntity(headers, HttpStatus.CONFLICT);
 //        }
 //        return new ResponseEntity(newShipment, headers, HttpStatus.CREATED);
 //    }
 
+    /*
+    * Finds a specific shipmentRate object by its ID.
+    *
+    * returns a shipmentRate and a 200 OK status code.
+     */
+    @GetMapping("/rate/{id}")
+    public ResponseEntity findShipmentRate(@PathVariable("id") int id){
+        ShipmentRate foundRate = ShipmentRatesService.findRate(id);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        return new ResponseEntity(foundRate, headers, HttpStatus.OK);
+    }
 
+    /*
+    * Fetches all the shipmentRate objects.
+    *
+    * returns all shipmentRates.
+     */
+    @GetMapping("/rate")
+    public ResponseEntity findAllRates(){
+        List<ShipmentRate> allRates = ShipmentRatesService.findAllRates();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        return new ResponseEntity(allRates, headers, HttpStatus.OK);
+    }
+
+    /*
+    * Deletes a specific shipmentRate by id.
+     */
+    @DeleteMapping("/rate/{id}")
+    public ResponseEntity deleteRate(@PathVariable("id") int id){
+        try{
+            ShipmentRatesService.delete(id);
+            return new ResponseEntity(HttpStatus.OK);
+        }catch(Exception e){
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }
