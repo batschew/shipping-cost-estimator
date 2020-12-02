@@ -28,8 +28,4 @@ class ShipmentRate {
     private Float rate;
     @SerializedName("carrier")
     private String carrier;
-//    @SerializedName("delivery_days")
-//    private Number deliveryDays;
-//    @SerializedName("delivery_date")
-//    private String deliveryDate;
 }

@@ -5,7 +5,6 @@ import lombok.Data;
 
 public @Data
 class PackageInfo {
-    //PARCEL
     @SerializedName("packageInfoId")
     private int packageInfoId;
     @SerializedName("length")

@@ -23,14 +23,7 @@
 </head>
 <body>
 <div th:replace="fragments/topnav.html"></div>
-<!--
-<form action="#" th:action="@{/findRate}"-->
-<div id="shipmentsSearch" class="input-group mb-3">
-    <input type="text" class="form-control" placeholder="Search by ID" aria-describedby="basic-addon2">
-    <div class="input-group-append">
-        <button class="btn btn-outline-secondary" type="button">Search</button>
-    </div>
-</div>
+
 <div id="shipmentsDisplay">
     <ul>
         <li class="shipments" th:each="shipment : ${shipments}">
@@ -41,9 +34,6 @@
             <p th:text="${'Carrier: ' + shipment.getCarrier()}"></p>
             <p th:text="${'Service Level: ' + shipment.getService()}"></p>
             <p th:text="${'Rate: $' + shipment.getRate()}"></p>
-        <!--    <form action="#" th:action="@{/deleteRate}" method="DELETE"> -->
-                <button type="submit" class="btn btn-secondary btn-lg" id="btnDeleteRate">Delete</button>
-         <!--   </form> -->
         </li>
     </ul>
 </div>
