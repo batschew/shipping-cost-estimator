@@ -47,18 +47,20 @@ public class PackageEstimatorController {
         return "start";
     }
 
+    /**
+     * Connects the start page with the shipments page, and presents all of the models on the database.
+     *
+     * @param model
+     * @return the shipments.html page.
+     */
     @RequestMapping("/shipments")
     public String shipments(Model model){
         var shipments = ShipmentRatesService.findAllRates();
-        for(ShipmentRate shipment : shipments){
-            System.out.println("Carrier: " + shipment.getCarrier());
-            System.out.println("Service level: " + shipment.getService());
-            System.out.println("Rate: $" + shipment.getRate());
-        }
         model.addAttribute("shipments", shipments);
         return "shipments";
     }
-    /*
+
+    /**
     * Saves a new ShipmentRates object.
     *
     * saveShipmentMap does two things: it creates a Shipment object that is consumed by the API,
@@ -71,7 +73,7 @@ public class PackageEstimatorController {
      */
     @PostMapping("/saveShipmentMap")
     public String saveShipmentMap(FromAddress fromAddress, ToAddress toAddress, PackageInfo packageInfo, Model model){
-
+        log.debug("Entering saveShipmentMap.");
         EasyPost.apiKey = "EZTK773d7864beb64671aadc6a9d64777a6boAq0h9WzLFA70as0wPnkrQ";
 
         //Declare variables
@@ -112,7 +114,9 @@ public class PackageEstimatorController {
         //Create easypost shipment
         try {
             shipmentModel = com.easypost.model.Shipment.create(shipmentMap);
+            log.info("API Shipment object with ID " + shipment.getId() + "Successfully created.");
         } catch (EasyPostException e) {
+            log.info("API Shipment has error " + e.getMessage(), e);
             e.printStackTrace();
         }
 
@@ -132,19 +136,21 @@ public class PackageEstimatorController {
 
                 //Save to database.
                 ShipmentRatesService.saveRate(shipmentRate);
+                log.info("Successfully created shipmentRate object with ID" + shipmentRate.getId());
             }
         }catch(Exception e){
+            log.info("Did not successfully create shipmentRate, error: " + e.getMessage(), e);
             e.printStackTrace();
-            return "start";
+            return "error";
         }
         return "start";
-
     }
 
-    /*
+    /**
     * Finds a specific shipmentRate object by its ID.
     *
-    * returns a shipmentRate and a 200 OK status code.
+     * @param id The ID of a shipmentRate object.
+    * @returns a shipmentRate and a 200 OK status code.
      */
     @GetMapping("/rate/{id}")
     public ResponseEntity findShipmentRate(@PathVariable("id") int id){
@@ -154,10 +160,10 @@ public class PackageEstimatorController {
         return new ResponseEntity(foundRate, headers, HttpStatus.OK);
     }
 
-    /*
+    /**
     * Fetches all the shipmentRate objects.
     *
-    * returns all shipmentRates.
+    * @returns all shipmentRates and a 200 Http status.
      */
     @GetMapping("/rate")
     public ResponseEntity findAllRates(){
@@ -167,15 +173,21 @@ public class PackageEstimatorController {
         return new ResponseEntity(allRates, headers, HttpStatus.OK);
     }
 
-    /*
+    /**
     * Deletes a specific shipmentRate by id.
+     *
+     * @param id the ID of a shipmentRate.
+     * @returns a 200 OK Http Status Code.
      */
     @DeleteMapping("/rate/{id}")
     public ResponseEntity deleteRate(@PathVariable("id") int id){
+        log.debug("Entering deleteRate method");
         try{
             ShipmentRatesService.delete(id);
+            log.info("shipmentRate with id " + id + " deleted.");
             return new ResponseEntity(HttpStatus.OK);
         }catch(Exception e){
+            log.info("shipmentRate with id " + id + " did not delete. Error: " + e.getMessage(), e);
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

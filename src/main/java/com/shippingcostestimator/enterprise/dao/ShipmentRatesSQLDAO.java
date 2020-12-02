@@ -51,8 +51,10 @@ public class ShipmentRatesSQLDAO implements IShipmentRatesDAO{
         return shipmentList;
     }
 
-    /*
+    /**
      * Deletes a ShipmentRate object.
+     *
+     * @param id
      */
     @Override
     public void delete(int id){

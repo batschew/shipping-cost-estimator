@@ -29,7 +29,6 @@ public class ShipmentRatesService implements IShipmentRatesService{
      * @param shipmentRate
      * @return Saved shipmentRate estimate.
      */
-
     @Override
     public ShipmentRate saveRate(ShipmentRate shipmentRate) {
         return shipmentRatesDAO.saveRate(shipmentRate);
