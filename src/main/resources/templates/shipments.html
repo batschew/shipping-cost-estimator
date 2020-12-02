@@ -23,14 +23,28 @@
 </head>
 <body>
 <div th:replace="fragments/topnav.html"></div>
-<div id="shipmentsDisplay">
-    <div th:each="shipment : ${shipments}">
-        <p th:text="${'ID: ' + shipment.getId()}"></p>
-        <p th:text="${'Object: ' + shipment.getObject()}"></p>
-        <p th:text="${'Carrier: ' + shipment.getCarrier()}"></p>
-        <p th:text="${'Service level: ' + shipment.getService()}"></p>
-        <p th:text="${'Rate: ' + shipment.getRate()}"></p>
+<!--
+<form action="#" th:action="@{/findRate}"-->
+<div id="shipmentsSearch" class="input-group mb-3">
+    <input type="text" class="form-control" placeholder="Search by ID" aria-describedby="basic-addon2">
+    <div class="input-group-append">
+        <button class="btn btn-outline-secondary" type="button">Search</button>
     </div>
+</div>
+<div id="shipmentsDisplay">
+    <ul>
+        <li class="shipments" th:each="shipment : ${shipments}">
+            <p th:text="${'ID: ' + shipment.getId()}"></p>
+            <p th:text="${'From address: ' + shipment.getFromRateAddress()}"></p>
+            <p th:text="${'To address: ' + shipment.getToRateAddress()}"></p>
+            <p th:text="${'Carrier: ' + shipment.getCarrier()}"></p>
+            <p th:text="${'Service level: ' + shipment.getService()}"></p>
+            <p th:text="${'Rate: $' + shipment.getRate()}"></p>
+        <!--    <form action="#" th:action="@{/deleteRate}" method="DELETE"> -->
+                <button type="submit" class="btn btn-secondary btn-lg" id="btnDeleteRate">Delete</button>
+         <!--   </form> -->
+        </li>
+    </ul>
 </div>
 </body>
 </html>

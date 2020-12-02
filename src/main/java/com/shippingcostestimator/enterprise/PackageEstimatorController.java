@@ -54,7 +54,6 @@ public class PackageEstimatorController {
             System.out.println("Carrier: " + shipment.getCarrier());
             System.out.println("Service level: " + shipment.getService());
             System.out.println("Rate: $" + shipment.getRate());
-            System.out.println("Object: " + shipment.getObject());
         }
         model.addAttribute("shipments", shipments);
         return "shipments";
@@ -125,8 +124,8 @@ public class PackageEstimatorController {
             //For each rate, save to an object.
             for(Rate rate : rates){
                 ShipmentRate shipmentRate = new ShipmentRate();
-                shipmentRate.setFromRateAddress(fromAddress.getFromStreetOne());
-                shipmentRate.setToRateAddress(toAddress.getToStreetOne());
+                shipmentRate.setFromRateAddress(fromAddress.getFromStreetOne() + " " + fromAddress.getFromStreetTwo() + " " + fromAddress.getFromCity() + ", " + fromAddress.getFromState() + " " + fromAddress.getFromZip()  );
+                shipmentRate.setToRateAddress(toAddress.getToStreetOne() + " " + toAddress.getToStreetTwo() + " " + toAddress.getToCity() + ", " + toAddress.getToState() + " " + toAddress.getToZip() );
                 shipmentRate.setCarrier(rate.getCarrier());
                 shipmentRate.setService(rate.getService());
                 shipmentRate.setRate(rate.getRate());

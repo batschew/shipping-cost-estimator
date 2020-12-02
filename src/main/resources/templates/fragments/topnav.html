@@ -1,10 +1,10 @@
-<ul>
+<ul id="navbar">
     <li><a href="/">Home</a></li>
     <li><a href="/shipments">Shipments</a></li>
 </ul>
 
 <style>
-    ul {
+    #navbar {
         list-style-type: none;
         margin: 0;
         padding: 0;
@@ -12,11 +12,11 @@
         background-color: #333;
     }
 
-    li {
+    #navbar > li {
         float: left;
     }
 
-    li a {
+    #navbar > li > a {
         display: block;
         color: white;
         text-align: center;
@@ -24,7 +24,7 @@
         text-decoration: none;
     }
 
-    li a:hover {
+    #navbar > li > a:hover {
         background-color: #111;
     }
 </style>
