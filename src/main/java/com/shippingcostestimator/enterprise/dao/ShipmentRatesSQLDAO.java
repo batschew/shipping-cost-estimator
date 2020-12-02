@@ -1,4 +1,4 @@
-package com.shippingcostestimator.enterprise.dao.ShipmentRates;
+package com.shippingcostestimator.enterprise.dao;
 
 import com.shippingcostestimator.enterprise.dto.ShipmentRate;
 import org.springframework.beans.factory.annotation.Autowired;

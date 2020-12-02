@@ -4,8 +4,7 @@ import com.easypost.EasyPost;
 import com.easypost.exception.EasyPostException;
 import com.easypost.model.Rate;
 import com.shippingcostestimator.enterprise.dto.*;
-import com.shippingcostestimator.enterprise.service.IShipmentMapService;
-import com.shippingcostestimator.enterprise.service.ShipmentRates.IShipmentRatesService;
+import com.shippingcostestimator.enterprise.service.IShipmentRatesService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +22,6 @@ import java.util.Map;
 
 @Controller // Decides what renders when a user hits a URL or endpoint
 public class PackageEstimatorController {
-
-    @Autowired
-    IShipmentMapService ShipmentMapService;
 
     @Autowired
     IShipmentRatesService ShipmentRatesService;
@@ -130,25 +126,25 @@ public class PackageEstimatorController {
 
     }
 
-    /*
-    * Creates a new Shipment object.
-    *
-    * returns one of two status codes:
-    * 201: Created
-    * 409: Conflict
-     */
-    @PostMapping(value="/shipmentMap", consumes="application/json", produces="application/json")
-    public ResponseEntity createShipmentMap(@RequestBody ShipmentMap shipmentMap){
-        ShipmentMap newShipment;
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        try{
-            newShipment = ShipmentMapService.saveEstimate(shipmentMap);
-        }catch(Exception e){
-            return new ResponseEntity(headers, HttpStatus.CONFLICT);
-        }
-        return new ResponseEntity(newShipment, headers, HttpStatus.CREATED);
-    }
+//    /*
+//    * Creates a new Shipment object.
+//    *
+//    * returns one of two status codes:
+//    * 201: Created
+//    * 409: Conflict
+//     */
+//    @PostMapping(value="/shipmentMap", consumes="application/json", produces="application/json")
+//    public ResponseEntity createShipmentMap(@RequestBody ShipmentMap shipmentMap){
+//        ShipmentMap newShipment;
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.setContentType(MediaType.APPLICATION_JSON);
+//        try{
+//            newShipment = ShipmentMapService.saveEstimate(shipmentMap);
+//        }catch(Exception e){
+//            return new ResponseEntity(headers, HttpStatus.CONFLICT);
+//        }
+//        return new ResponseEntity(newShipment, headers, HttpStatus.CREATED);
+//    }
 
     /*
     * Finds a specific shipmentRate object by its ID.

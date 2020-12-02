@@ -1,12 +1,12 @@
-package com.shippingcostestimator.enterprise.service.ShipmentRates;
+package com.shippingcostestimator.enterprise.dao;
 
 import com.shippingcostestimator.enterprise.dto.ShipmentRate;
 
 import java.util.List;
 
-public interface IShipmentRatesService {
+public interface IShipmentRatesDAO {
     ShipmentRate saveRate(ShipmentRate shipmentRate);
-    ShipmentRate findRate(int id);
+    ShipmentRate findRateById(int id);
     List<ShipmentRate> findAllRates();
     void delete(int id);
 }

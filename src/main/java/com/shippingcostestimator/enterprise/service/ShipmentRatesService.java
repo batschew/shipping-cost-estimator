@@ -1,6 +1,6 @@
-package com.shippingcostestimator.enterprise.service.ShipmentRates;
+package com.shippingcostestimator.enterprise.service;
 
-import com.shippingcostestimator.enterprise.dao.ShipmentRates.IShipmentRatesDAO;
+import com.shippingcostestimator.enterprise.dao.IShipmentRatesDAO;
 import com.shippingcostestimator.enterprise.dto.ShipmentRate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
