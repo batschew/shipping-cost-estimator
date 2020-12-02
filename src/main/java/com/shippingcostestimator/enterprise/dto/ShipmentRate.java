@@ -12,8 +12,10 @@ class ShipmentRate {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @SerializedName("id")
     private int id;
-    @SerializedName("object")
-    private String object;
+    @SerializedName("fromRateAddress")
+    private String fromRateAddress;
+    @SerializedName("toRateAddress")
+    private String toRateAddress;
     @SerializedName("service")
     private String service;
     @SerializedName("rate")
