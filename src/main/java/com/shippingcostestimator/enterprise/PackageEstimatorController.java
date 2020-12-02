@@ -72,6 +72,9 @@ public class PackageEstimatorController {
         toAddressMap.put("zip", toAddress.getToZip());
         toAddressMap.put("state", toAddress.getToState());
 
+        parcelMap.put("length", packageInfo.getLength());
+        parcelMap.put("height", packageInfo.getHeight());
+        parcelMap.put("width", packageInfo.getWidth());
         parcelMap.put("weight", packageInfo.getWeight());
 
         shipment.setFromAddress(fromAddressMap);

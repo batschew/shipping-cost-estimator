@@ -28,24 +28,33 @@
 <form action="#" th:action="@{/saveShipmentMap}" method="POST">
     <div id="packageInfoDiv" th:object="${packageInfo}">
         <h4 id="packageInfoHeader">Package Information</h4>
-        <!--Carrier select dropdown-->
-        <div class="input-group mb-3" id="carrierSelect">
+        <div class="input-group mb-3" id="inputPackageLength">
             <div class="input-group-prepend">
-                <label class="input-group-text" for="carrierSelect">Carrier</label>
+                <span class="input-group-text">Length (in)</span>
             </div>
-            <select class="custom-select" id="inputGroupCarrierSelect">
-                <option value="" selected></option>
-                <option value="FedEx">FedEx</option>
-                <option value="DHL express">DHL express</option>
-                <option value="UPS">UPS</option>
-                <option value="USPS">USPS</option>
-            </select>
+            <input type="text" placeholder="" class="form-control" aria-describedby="basic-addon1"
+                   th:field="*{length}">
+        </div>
+        <div class="input-group mb-3" id="inputPackageWidth">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Width (in)</span>
+            </div>
+            <input type="text" placeholder="" class="form-control" aria-describedby="basic-addon1"
+                   th:field="*{width}">
+        </div>
+        <div class="input-group mb-3" id="inputPackageHeight">
+            <div class="input-group-prepend" >
+                <span class="input-group-text">Height (in)</span>
+            </div>
+            <input type="text" placeholder="" class="form-control" aria-describedby="basic-addon1"
+                   th:field="*{height}">
         </div>
         <div class="input-group mb-3" id="inputPackageWeight">
             <div class="input-group-prepend">
                 <span class="input-group-text">Package Weight (oz)</span>
             </div>
-            <input type="text" placeholder="Package weight" class="form-control" aria-describedby="basic-addon1" name="weight"
+            <input type="text" class="form-control" aria-describedby="basic-addon1"
+                   name="weight"
                    th:field="*{weight}">
         </div>
 
@@ -79,7 +88,8 @@
             <div class="input-group-prepend">
                 <span class="input-group-text">City</span>
             </div>
-            <input type="text" placeholder="City" class="form-control" aria-describedby="basic-addon1" th:field="*{fromCity}">
+            <input type="text" placeholder="City" class="form-control" aria-describedby="basic-addon1"
+                   th:field="*{fromCity}">
         </div>
 
         <!--Starting city input-->
@@ -128,7 +138,8 @@
             <div class="input-group-prepend">
                 <span class="input-group-text">City</span>
             </div>
-            <input type="text" placeholder="City" class="form-control" aria-describedby="basic-addon1" th:field="*{toCity}">
+            <input type="text" placeholder="City" class="form-control" aria-describedby="basic-addon1"
+                   th:field="*{toCity}">
         </div>
 
         <!--Destination Zip Code input-->
