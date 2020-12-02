@@ -3,6 +3,8 @@ package com.shippingcostestimator.enterprise.service;
 import com.shippingcostestimator.enterprise.dao.IShipmentRatesDAO;
 import com.shippingcostestimator.enterprise.dto.ShipmentRate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,6 +29,7 @@ public class ShipmentRatesService implements IShipmentRatesService{
      * @param shipmentRate
      * @return Saved shipmentRate estimate.
      */
+
     @Override
     public ShipmentRate saveRate(ShipmentRate shipmentRate) {
         return shipmentRatesDAO.saveRate(shipmentRate);
@@ -38,6 +41,7 @@ public class ShipmentRatesService implements IShipmentRatesService{
      * @return A shipmentRate based on specified id.
      */
     @Override
+    @Cacheable(value="shipmentRate", key="#id")
     public ShipmentRate findRate(int id){
         ShipmentRate uniqueId = shipmentRatesDAO.findRateById(id);
         return uniqueId;
@@ -48,6 +52,7 @@ public class ShipmentRatesService implements IShipmentRatesService{
      * @return a list of all shipmentRates.
      */
     @Override
+    @Cacheable("shipmentRate")
     public List<ShipmentRate> findAllRates(){
         return shipmentRatesDAO.findAllRates();
     }
@@ -56,6 +61,7 @@ public class ShipmentRatesService implements IShipmentRatesService{
     * Deletes a ShipmentRate object.
      */
     @Override
+    @CacheEvict(value="shipmentRate", key="#id")
     public void delete(int id) {
         shipmentRatesDAO.delete(id);
     }

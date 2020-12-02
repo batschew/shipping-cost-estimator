@@ -141,26 +141,6 @@ public class PackageEstimatorController {
 
     }
 
-//    /*
-//    * Creates a new Shipment object.
-//    *
-//    * returns one of two status codes:
-//    * 201: Created
-//    * 409: Conflict
-//     */
-//    @PostMapping(value="/shipmentMap", consumes="application/json", produces="application/json")
-//    public ResponseEntity createShipmentMap(@RequestBody ShipmentMap shipmentMap){
-//        ShipmentMap newShipment;
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.setContentType(MediaType.APPLICATION_JSON);
-//        try{
-//            newShipment = ShipmentMapService.saveEstimate(shipmentMap);
-//        }catch(Exception e){
-//            return new ResponseEntity(headers, HttpStatus.CONFLICT);
-//        }
-//        return new ResponseEntity(newShipment, headers, HttpStatus.CREATED);
-//    }
-
     /*
     * Finds a specific shipmentRate object by its ID.
     *
