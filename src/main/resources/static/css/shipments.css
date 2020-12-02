@@ -1,0 +1,25 @@
+#shipmentsDisplay{
+    position:absolute;
+    left: 35%;
+    padding: 20px;
+}
+
+#shipmentsSearch{
+    float:left;
+    position:absolute;
+    left: 10%;
+    top: 10%;
+    width: 300px;
+}
+
+.shipments{
+    width: 1000px;
+    margin: 10px;
+    column-count: 3;
+    background-color: #f1f1f1;
+    padding: 10px;
+    padding-left: 50px;
+    border-radius: 25px;
+    border: 2px solid #0062cc78;
+    list-style: none;
+}

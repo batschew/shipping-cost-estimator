@@ -47,6 +47,17 @@ public class PackageEstimatorController {
         return "start";
     }
 
+    @RequestMapping("/shipments")
+    public String shipments(Model model){
+        var shipments = ShipmentRatesService.findAllRates();
+        for(ShipmentRate shipment : shipments){
+            System.out.println("Carrier: " + shipment.getCarrier());
+            System.out.println("Service level: " + shipment.getService());
+            System.out.println("Rate: $" + shipment.getRate());
+        }
+        model.addAttribute("shipments", shipments);
+        return "shipments";
+    }
     /*
     * Saves a new ShipmentRates object.
     *
@@ -82,6 +93,9 @@ public class PackageEstimatorController {
         toAddressMap.put("zip", toAddress.getToZip());
         toAddressMap.put("state", toAddress.getToState());
 
+        parcelMap.put("length", packageInfo.getLength());
+        parcelMap.put("height", packageInfo.getHeight());
+        parcelMap.put("width", packageInfo.getWidth());
         parcelMap.put("weight", packageInfo.getWeight());
 
         shipment.setFromAddress(fromAddressMap);
@@ -110,8 +124,8 @@ public class PackageEstimatorController {
             //For each rate, save to an object.
             for(Rate rate : rates){
                 ShipmentRate shipmentRate = new ShipmentRate();
-                shipmentRate.setFromRateAddress(fromAddress.getFromStreetOne());
-                shipmentRate.setToRateAddress(toAddress.getToStreetOne());
+                shipmentRate.setFromRateAddress(fromAddress.getFromStreetOne() + " " + fromAddress.getFromStreetTwo() + " " + fromAddress.getFromCity() + ", " + fromAddress.getFromState() + " " + fromAddress.getFromZip()  );
+                shipmentRate.setToRateAddress(toAddress.getToStreetOne() + " " + toAddress.getToStreetTwo() + " " + toAddress.getToCity() + ", " + toAddress.getToState() + " " + toAddress.getToZip() );
                 shipmentRate.setCarrier(rate.getCarrier());
                 shipmentRate.setService(rate.getService());
                 shipmentRate.setRate(rate.getRate());
