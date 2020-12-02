@@ -103,7 +103,8 @@ class EnterpriseApplicationTests {
             //For each rate, save to an object.
             for(Rate rate : rates){
 
-                shipmentRate.setObject(fromAddress.getFromStreetOne());
+                shipmentRate.setFromRateAddress(fromAddress.getFromStreetOne());
+                shipmentRate.setToRateAddress(toAddress.getToStreetOne());
                 shipmentRate.setCarrier(rate.getCarrier());
                 shipmentRate.setService(rate.getService());
                 shipmentRate.setRate(rate.getRate());
