@@ -125,7 +125,8 @@ public class PackageEstimatorController {
             //For each rate, save to an object.
             for(Rate rate : rates){
                 ShipmentRate shipmentRate = new ShipmentRate();
-                shipmentRate.setObject(fromAddress.getFromStreetOne());
+                shipmentRate.setFromRateAddress(fromAddress.getFromStreetOne());
+                shipmentRate.setToRateAddress(toAddress.getToStreetOne());
                 shipmentRate.setCarrier(rate.getCarrier());
                 shipmentRate.setService(rate.getService());
                 shipmentRate.setRate(rate.getRate());
