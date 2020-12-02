@@ -51,7 +51,6 @@ public class ShipmentRatesService implements IShipmentRatesService{
      * @return a list of all shipmentRates.
      */
     @Override
-    @Cacheable("shipmentRate")
     public List<ShipmentRate> findAllRates(){
         return shipmentRatesDAO.findAllRates();
     }
