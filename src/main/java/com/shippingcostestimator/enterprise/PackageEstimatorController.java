@@ -54,7 +54,9 @@ public class PackageEstimatorController {
             System.out.println("Carrier: " + shipment.getCarrier());
             System.out.println("Service level: " + shipment.getService());
             System.out.println("Rate: $" + shipment.getRate());
+            System.out.println("Object: " + shipment.getObject());
         }
+        model.addAttribute("shipments", shipments);
         return "shipments";
     }
     /*
