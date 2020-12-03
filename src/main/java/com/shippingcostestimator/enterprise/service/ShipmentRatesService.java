@@ -3,6 +3,8 @@ package com.shippingcostestimator.enterprise.service;
 import com.shippingcostestimator.enterprise.dao.IShipmentRatesDAO;
 import com.shippingcostestimator.enterprise.dto.ShipmentRate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -38,6 +40,7 @@ public class ShipmentRatesService implements IShipmentRatesService{
      * @return A shipmentRate based on specified id.
      */
     @Override
+    @Cacheable(value="shipmentRate", key="#id")
     public ShipmentRate findRate(int id){
         ShipmentRate uniqueId = shipmentRatesDAO.findRateById(id);
         return uniqueId;
@@ -56,6 +59,7 @@ public class ShipmentRatesService implements IShipmentRatesService{
     * Deletes a ShipmentRate object.
      */
     @Override
+    @CacheEvict(value="shipmentRate", key="#id")
     public void delete(int id) {
         shipmentRatesDAO.delete(id);
     }

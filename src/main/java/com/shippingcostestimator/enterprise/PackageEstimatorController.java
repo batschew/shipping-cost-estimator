@@ -47,7 +47,20 @@ public class PackageEstimatorController {
         return "start";
     }
 
-    /*
+    /**
+     * Connects the start page with the shipments page, and presents all of the models on the database.
+     *
+     * @param model
+     * @return the shipments.html page.
+     */
+    @RequestMapping("/shipments")
+    public String shipments(Model model){
+        var shipments = ShipmentRatesService.findAllRates();
+        model.addAttribute("shipments", shipments);
+        return "shipments";
+    }
+
+    /**
     * Saves a new ShipmentRates object.
     *
     * saveShipmentMap does two things: it creates a Shipment object that is consumed by the API,
@@ -60,7 +73,7 @@ public class PackageEstimatorController {
      */
     @PostMapping("/saveShipmentMap")
     public String saveShipmentMap(FromAddress fromAddress, ToAddress toAddress, PackageInfo packageInfo, Model model){
-
+        log.debug("Entering saveShipmentMap.");
         EasyPost.apiKey = "EZTK773d7864beb64671aadc6a9d64777a6boAq0h9WzLFA70as0wPnkrQ";
 
         //Declare variables
@@ -82,6 +95,9 @@ public class PackageEstimatorController {
         toAddressMap.put("zip", toAddress.getToZip());
         toAddressMap.put("state", toAddress.getToState());
 
+        parcelMap.put("length", packageInfo.getLength());
+        parcelMap.put("height", packageInfo.getHeight());
+        parcelMap.put("width", packageInfo.getWidth());
         parcelMap.put("weight", packageInfo.getWeight());
 
         shipment.setFromAddress(fromAddressMap);
@@ -98,7 +114,9 @@ public class PackageEstimatorController {
         //Create easypost shipment
         try {
             shipmentModel = com.easypost.model.Shipment.create(shipmentMap);
+            log.info("API Shipment object with ID " + shipment.getId() + "Successfully created.");
         } catch (EasyPostException e) {
+            log.info("API Shipment has error " + e.getMessage(), e);
             e.printStackTrace();
         }
 
@@ -110,47 +128,32 @@ public class PackageEstimatorController {
             //For each rate, save to an object.
             for(Rate rate : rates){
                 ShipmentRate shipmentRate = new ShipmentRate();
-                shipmentRate.setFromRateAddress(fromAddress.getFromStreetOne());
-                shipmentRate.setToRateAddress(toAddress.getToStreetOne());
+                shipmentRate.setFromRateAddress(fromAddress.getFromStreetOne() + " " + fromAddress.getFromStreetTwo() + " " + fromAddress.getFromCity() + ", " + fromAddress.getFromState() + " " + fromAddress.getFromZip()  );
+                shipmentRate.setToRateAddress(toAddress.getToStreetOne() + " " + toAddress.getToStreetTwo() + " " + toAddress.getToCity() + ", " + toAddress.getToState() + " " + toAddress.getToZip() );
+                shipmentRate.setLength(packageInfo.getLength());
+                shipmentRate.setWidth(packageInfo.getWidth());
+                shipmentRate.setHeight(packageInfo.getHeight());
                 shipmentRate.setCarrier(rate.getCarrier());
                 shipmentRate.setService(rate.getService());
                 shipmentRate.setRate(rate.getRate());
 
                 //Save to database.
                 ShipmentRatesService.saveRate(shipmentRate);
+                log.info("Successfully created shipmentRate object with ID" + shipmentRate.getId());
             }
         }catch(Exception e){
+            log.info("Did not successfully create shipmentRate, error: " + e.getMessage(), e);
             e.printStackTrace();
-            return "start";
+            return "error";
         }
         return "start";
-
     }
 
-//    /*
-//    * Creates a new Shipment object.
-//    *
-//    * returns one of two status codes:
-//    * 201: Created
-//    * 409: Conflict
-//     */
-//    @PostMapping(value="/shipmentMap", consumes="application/json", produces="application/json")
-//    public ResponseEntity createShipmentMap(@RequestBody ShipmentMap shipmentMap){
-//        ShipmentMap newShipment;
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.setContentType(MediaType.APPLICATION_JSON);
-//        try{
-//            newShipment = ShipmentMapService.saveEstimate(shipmentMap);
-//        }catch(Exception e){
-//            return new ResponseEntity(headers, HttpStatus.CONFLICT);
-//        }
-//        return new ResponseEntity(newShipment, headers, HttpStatus.CREATED);
-//    }
-
-    /*
+    /**
     * Finds a specific shipmentRate object by its ID.
     *
-    * returns a shipmentRate and a 200 OK status code.
+     * @param id The ID of a shipmentRate object.
+    * @returns a shipmentRate and a 200 OK status code.
      */
     @GetMapping("/rate/{id}")
     public ResponseEntity findShipmentRate(@PathVariable("id") int id){
@@ -160,10 +163,10 @@ public class PackageEstimatorController {
         return new ResponseEntity(foundRate, headers, HttpStatus.OK);
     }
 
-    /*
+    /**
     * Fetches all the shipmentRate objects.
     *
-    * returns all shipmentRates.
+    * @returns all shipmentRates and a 200 Http status.
      */
     @GetMapping("/rate")
     public ResponseEntity findAllRates(){
@@ -173,15 +176,21 @@ public class PackageEstimatorController {
         return new ResponseEntity(allRates, headers, HttpStatus.OK);
     }
 
-    /*
+    /**
     * Deletes a specific shipmentRate by id.
+     *
+     * @param id the ID of a shipmentRate.
+     * @returns a 200 OK Http Status Code.
      */
     @DeleteMapping("/rate/{id}")
     public ResponseEntity deleteRate(@PathVariable("id") int id){
+        log.debug("Entering deleteRate method");
         try{
             ShipmentRatesService.delete(id);
+            log.info("shipmentRate with id " + id + " deleted.");
             return new ResponseEntity(HttpStatus.OK);
         }catch(Exception e){
+            log.info("shipmentRate with id " + id + " did not delete. Error: " + e.getMessage(), e);
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
